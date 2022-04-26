@@ -14,6 +14,7 @@ public:
     int vie = 50;
 
     Mouton(int x, int y);
+    Mouton();
 };
 
 

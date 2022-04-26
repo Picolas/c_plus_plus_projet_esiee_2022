@@ -8,3 +8,7 @@ Animal::Animal(int x, int y) {
     this->coordonates[0] = x;
     this->coordonates[1] = y;
 }
+
+Animal::Animal(){
+
+}

@@ -8,3 +8,7 @@ Mineraux::Mineraux(int x, int y) {
     this->coordonates[0] = x;
     this->coordonates[1] = y;
 }
+
+Mineraux::Mineraux(){
+
+}

@@ -12,6 +12,7 @@ class Animal {
 
 public:
     Animal(int x, int y);
+    Animal();
 
     int coordonates[2];
 };

@@ -14,6 +14,7 @@ public:
     int vie = 60;
 
     Loup(int x, int y);
+    Loup();
 };
 
 

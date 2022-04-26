@@ -7,3 +7,7 @@
 Mouton::Mouton(int x, int y) : Animal(x, y) {
 
 }
+
+Mouton::Mouton() {
+
+}
