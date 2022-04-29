@@ -1,11 +1,12 @@
 #include <iostream>
-#include "Class/Animal/Animal.h"
-
-
-using namespace std;
-
+#include "Class/Game/Game.h"
 
 int main() {
+
+
+    Game game;
+
+
 
     return 0;
 }

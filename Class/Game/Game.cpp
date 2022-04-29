@@ -11,6 +11,17 @@ Game::Game(int number_loup, int number_mouton, int number_mineraux, int x, int y
     this->listeMineraux = new Mineraux[number_mineraux];
 }
 
+Game::Game(int x, int y) {
+    this->setSize(x, y);
+    this->listeLoup = new Loup[number_loup];
+    this->listeMouton = new Mouton[number_mouton];
+    this->listeMineraux = new Mineraux[number_mineraux];
+}
+
+Game::Game() {
+    this->startGame();
+}
+
 void Game::setSize(int x, int y) {
     this->size[0] = x;
     this->size[1] = y;

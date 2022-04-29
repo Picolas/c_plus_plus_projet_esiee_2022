@@ -12,6 +12,6 @@ Mouton::Mouton() {
 
 }
 
-Mouton::eatHerbe(int x, int y) {
+void Mouton::eatHerbe(int x, int y) {
     if (searchInArray)
 }

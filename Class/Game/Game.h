@@ -8,7 +8,7 @@
 #include "../Animal/Type/Loup/Loup.h"
 #include "../World/Mineraux.h"
 #include "../World/Herbe.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 
 using namespace std;
@@ -28,6 +28,10 @@ public:
     string state;
 
     Game(int number_loup, int number_mouton, int number_mineraux, int x, int y);
+
+    Game(int x, int y);
+
+    Game();
 
     void setSize(int x, int y);
 

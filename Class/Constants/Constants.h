@@ -8,9 +8,9 @@
 using namespace std;
 #define C_PLUS_PLUS_PROJET_ESIEE_2022_CONSTANTS_H
 
-static const string MOUTON = "Mouton";
-static const string LOUP = "Loup";
-static const string HERBE = "Herbe";
-static const string MINERAUX = "Mineraux";
+const string MOUTON = "Mouton";
+const string LOUP = "Loup";
+const string HERBE = "Herbe";
+const string MINERAUX = "Mineraux";
 
 #endif //C_PLUS_PLUS_PROJET_ESIEE_2022_CONSTANTS_H
