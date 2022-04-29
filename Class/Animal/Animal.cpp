@@ -9,6 +9,6 @@ Animal::Animal(int x, int y) {
     this->coordonates[1] = y;
 }
 
-Animal::Animal(){
+Animal::Animal() {
 
 }

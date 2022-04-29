@@ -11,6 +11,7 @@ public:
     int coordonates[2];
 
     Mineraux(int x, int y);
+
     Mineraux();
 };
 

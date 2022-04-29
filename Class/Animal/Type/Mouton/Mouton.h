@@ -14,7 +14,10 @@ public:
     int vie = 50;
 
     Mouton(int x, int y);
+
     Mouton();
+
+    void eatHerbe(int x, int y);
 };
 
 

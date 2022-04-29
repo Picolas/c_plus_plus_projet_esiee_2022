@@ -11,3 +11,7 @@ Mouton::Mouton(int x, int y) : Animal(x, y) {
 Mouton::Mouton() {
 
 }
+
+Mouton::eatHerbe(int x, int y) {
+    if (searchInArray)
+}

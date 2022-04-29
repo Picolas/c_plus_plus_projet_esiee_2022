@@ -15,6 +15,9 @@ using namespace std;
 #define C_PLUS_PLUS_PROJET_ESIEE_2022_GAME_H
 
 class Game {
+
+public:
+
     int size[2];
     int number_loup = 5;
     int number_mouton = 10;
@@ -24,7 +27,6 @@ class Game {
     Mineraux *listeMineraux;
     string state;
 
-public:
     Game(int number_loup, int number_mouton, int number_mineraux, int x, int y);
 
     void setSize(int x, int y);
@@ -34,7 +36,9 @@ public:
     void gameLoop();
 
     void addMouton(int nombre);
+
     void addLoup(int nombre);
+
     void addMineraux(int nombre);
 
     int * generateCoordonate();

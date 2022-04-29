@@ -7,6 +7,7 @@
 
 
 class Herbe {
+
 public:
     int coordonates[2];
 };

@@ -21,7 +21,6 @@ void Game::startGame() {
 }
 
 
-
 void Game::gameLoop() {
     while(this->state == "started") {
 
@@ -93,27 +92,32 @@ bool Game::searchInArray(int x, int y) {
 
     //Find mouton;
     for (int i = 0; i < this->number_mouton; ++i) {
-        if (this->listeMouton[i].coordonates[0] == x && this->listeMouton[i].coordonates[1] == y)
+        if (this->listeMouton[i].coordonates[0] == x && this->listeMouton[i].coordonates[1] == y) {
             canPlaceMouton = false;
             break;
+        }
     }
 
     //Find loup;
     for (int i = 0; i < this->number_loup; ++i) {
-        if (this->listeLoup[i].coordonates[0] == x && this->listeLoup[i].coordonates[1] == y)
+        if (this->listeLoup[i].coordonates[0] == x && this->listeLoup[i].coordonates[1] == y) {
             canPlaceLoup = false;
             break;
+        }
     }
 
     //Find mineraux;
     for (int i = 0; i < this->number_mineraux; ++i) {
-        if (this->listeMineraux[i].coordonates[0] == x && this->listeMineraux[i].coordonates[1] == y)
+        if (this->listeMineraux[i].coordonates[0] == x && this->listeMineraux[i].coordonates[1] == y) {
             canPlaceMineraux = false;
             break;
+        }
     }
+
     if (canPlaceMouton && canPlaceLoup  && canPlaceMineraux) {
         return true;
     }
+
     return false;
 }
 

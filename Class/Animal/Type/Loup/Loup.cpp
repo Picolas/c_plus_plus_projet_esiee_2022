@@ -8,6 +8,6 @@ Loup::Loup(int x, int y): Animal(x, y)  {
 
 }
 
-Loup::Loup(){
+Loup::Loup() {
 
 }
