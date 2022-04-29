@@ -12,9 +12,9 @@ using namespace std;
 
 class Place {
 
-    static bool staticSearchInArray(int x, int y, Game game);
+    static bool staticSearchInArray(int x, int y, Game& game);
 
-    static string getBlockType(int x, int y, Game game);
+    static string getBlockType(int x, int y, Game& game);
 
 };
 

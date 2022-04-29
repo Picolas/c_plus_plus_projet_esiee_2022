@@ -3,14 +3,14 @@
 //
 
 #ifndef C_PLUS_PLUS_PROJET_ESIEE_2022_GAME_H
-#include "../Animal/Animal.h"
-#include "../Animal/Type/Mouton/Mouton.h"
-#include "../Animal/Type/Loup/Loup.h"
-#include "../World/Mineraux.h"
-#include "../World/Herbe.h"
+#include "../Block/Animal/Animal.h"
+#include "../Block/Animal/Type/Mouton/Mouton.h"
+#include "../Block/Animal/Type/Loup/Loup.h"
+#include "../Block/World/Mineraux.h"
+#include "../Block/World/Herbe.h"
 #include <cstdlib>
 #include <string>
-
+#include <ctime>
 using namespace std;
 #define C_PLUS_PLUS_PROJET_ESIEE_2022_GAME_H
 
@@ -22,9 +22,9 @@ public:
     int number_loup = 5;
     int number_mouton = 10;
     int number_mineraux = 20;
-    Loup *listeLoup;
-    Mouton *listeMouton;
-    Mineraux *listeMineraux;
+    vector<Loup> listeLoup;
+    Mouton listeMouton[10];
+    Mineraux listeMineraux[20];
     string state;
 
     Game(int number_loup, int number_mouton, int number_mineraux, int x, int y);

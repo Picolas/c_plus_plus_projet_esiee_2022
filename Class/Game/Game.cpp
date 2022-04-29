@@ -43,12 +43,12 @@ void Game::addLoup(int nombre) {
     for (int i = 0; i < nombre; ++i) {
         resultCoordonate = generateCoordonate();
 
-        Loup * loup = new Loup(resultCoordonate[0], resultCoordonate[1]);
+        Loup loup(resultCoordonate[0], resultCoordonate[1]);
 
-        this->listeLoup[i].coordonates[0] = loup->coordonates[0];
-        this->listeLoup[i].coordonates[1] = loup->coordonates[1];
-        this->listeLoup[i].vie = loup->vie;
-        this->listeLoup[i].faim = loup->faim;
+        this->listeLoup[i].coordonates[0] = loup.coordonates[0];
+        this->listeLoup[i].coordonates[1] = loup.coordonates[1];
+        this->listeLoup[i].vie = loup.vie;
+        this->listeLoup[i].faim = loup.faim;
     }
 }
 
@@ -57,12 +57,12 @@ void Game::addMouton(int nombre) {
     for (int i = 0; i < nombre; ++i) {
         resultCoordonate = generateCoordonate();
 
-        Mouton * mouton = new Mouton(resultCoordonate[0], resultCoordonate[1]);
+        Mouton mouton(resultCoordonate[0], resultCoordonate[1]);
 
-        this->listeMouton[i].coordonates[0] = mouton->coordonates[0];
-        this->listeMouton[i].coordonates[1] = mouton->coordonates[1];
-        this->listeMouton[i].vie = mouton->vie;
-        this->listeMouton[i].faim = mouton->faim;
+        this->listeMouton[i].coordonates[0] = mouton.coordonates[0];
+        this->listeMouton[i].coordonates[1] = mouton.coordonates[1];
+        this->listeMouton[i].vie = mouton.vie;
+        this->listeMouton[i].faim = mouton.faim;
     }
 }
 
@@ -71,14 +71,16 @@ void Game::addMineraux(int nombre) {
     for (int i = 0; i < nombre; ++i) {
         resultCoordonate = generateCoordonate();
 
-        Mineraux * mineraux = new Mineraux(resultCoordonate[0], resultCoordonate[1]);
+        Mineraux mineraux(resultCoordonate[0], resultCoordonate[1]);
 
-        this->listeMouton[i].coordonates[0] = mineraux->coordonates[0];
-        this->listeMouton[i].coordonates[1] = mineraux->coordonates[1];
+        this->listeMouton[i].coordonates[0] = mineraux.coordonates[0];
+        this->listeMouton[i].coordonates[1] = mineraux.coordonates[1];
     }
 }
 
 int * Game::generateCoordonate() {
+    srand (time(NULL));
+
     int xCoordonate = rand() % this->size[0];
     int yCoordonate = rand() % this->size[1];
 
@@ -131,4 +133,12 @@ bool Game::searchInArray(int x, int y) {
 
     return false;
 }
+
+void moutonMangeHerbe(int x, int y, Mouton& mouton);
+
+void loupMangeMouton(int x, int y, Loup& loup);
+
+void changeHerbeMineraux(int x, int y, Mineraux& mineraux);
+
+void changeBlockType(int x, int y, Block& mineraux);
 

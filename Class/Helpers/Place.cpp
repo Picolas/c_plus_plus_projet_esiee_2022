@@ -4,7 +4,7 @@
 
 #include "Place.h"
 
-bool Place::staticSearchInArray(int x, int y, Game game) {
+bool Place::staticSearchInArray(int x, int y, Game &game) {
     bool canPlaceMouton = true;
     bool canPlaceLoup = true;
     bool canPlaceMineraux = true;
@@ -43,7 +43,7 @@ bool Place::staticSearchInArray(int x, int y, Game game) {
     return false;
 }
 
-string Place::getBlockType(int x, int y, Game game) {
+string Place::getBlockType(int x, int y, Game& game) {
     //Find mouton;
     for (int i = 0; i < game.number_mouton; ++i) {
         if (game.listeMouton[i].coordonates[0] == x && game.listeMouton[i].coordonates[1] == y)
@@ -64,3 +64,6 @@ string Place::getBlockType(int x, int y, Game game) {
 
     return HERBE;
 }
+
+
+

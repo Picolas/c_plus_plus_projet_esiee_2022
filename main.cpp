@@ -4,7 +4,11 @@
 int main() {
 
 
-    Game game;
+    Game game(50, 50);
+
+    game.addLoup(10);
+
+    game.listeLoup;
 
 
 
