@@ -8,9 +8,12 @@
 #include "../Block/Animal/Type/Loup/Loup.h"
 #include "../Block/World/Mineraux.h"
 #include "../Block/World/Herbe.h"
+#include "../Constants/Constants.h"
 #include <cstdlib>
 #include <string>
 #include <ctime>
+#include <vector>
+
 using namespace std;
 #define C_PLUS_PLUS_PROJET_ESIEE_2022_GAME_H
 
@@ -23,8 +26,8 @@ public:
     int number_mouton = 10;
     int number_mineraux = 20;
     vector<Loup> listeLoup;
-    Mouton listeMouton[10];
-    Mineraux listeMineraux[20];
+    vector<Mouton> listeMouton;
+    vector<Mineraux> listeMineraux;
     string state;
 
     Game(int number_loup, int number_mouton, int number_mineraux, int x, int y);

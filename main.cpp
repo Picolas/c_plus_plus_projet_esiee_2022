@@ -10,7 +10,9 @@ int main() {
 
     game.listeLoup;
 
-
+    for (Loup loup : game.listeLoup) {
+        cout << loup.coordonates[0] << endl;
+    }
 
     return 0;
 }

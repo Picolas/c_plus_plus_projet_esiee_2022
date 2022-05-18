@@ -6,16 +6,10 @@
 
 Game::Game(int number_loup, int number_mouton, int number_mineraux, int x, int y): number_loup(number_loup), number_mouton(number_mouton), number_mineraux(number_mineraux){
     this->setSize(x, y);
-    this->listeLoup = new Loup[number_loup];
-    this->listeMouton = new Mouton[number_mouton];
-    this->listeMineraux = new Mineraux[number_mineraux];
 }
 
 Game::Game(int x, int y) {
     this->setSize(x, y);
-    this->listeLoup = new Loup[number_loup];
-    this->listeMouton = new Mouton[number_mouton];
-    this->listeMineraux = new Mineraux[number_mineraux];
 }
 
 Game::Game() {
@@ -44,11 +38,7 @@ void Game::addLoup(int nombre) {
         resultCoordonate = generateCoordonate();
 
         Loup loup(resultCoordonate[0], resultCoordonate[1]);
-
-        this->listeLoup[i].coordonates[0] = loup.coordonates[0];
-        this->listeLoup[i].coordonates[1] = loup.coordonates[1];
-        this->listeLoup[i].vie = loup.vie;
-        this->listeLoup[i].faim = loup.faim;
+        this->listeLoup.push_back(loup);
     }
 }
 
@@ -58,11 +48,7 @@ void Game::addMouton(int nombre) {
         resultCoordonate = generateCoordonate();
 
         Mouton mouton(resultCoordonate[0], resultCoordonate[1]);
-
-        this->listeMouton[i].coordonates[0] = mouton.coordonates[0];
-        this->listeMouton[i].coordonates[1] = mouton.coordonates[1];
-        this->listeMouton[i].vie = mouton.vie;
-        this->listeMouton[i].faim = mouton.faim;
+        this->listeMouton.push_back(mouton);
     }
 }
 
@@ -72,9 +58,7 @@ void Game::addMineraux(int nombre) {
         resultCoordonate = generateCoordonate();
 
         Mineraux mineraux(resultCoordonate[0], resultCoordonate[1]);
-
-        this->listeMouton[i].coordonates[0] = mineraux.coordonates[0];
-        this->listeMouton[i].coordonates[1] = mineraux.coordonates[1];
+        this->listeMineraux.push_back(mineraux);
     }
 }
 
@@ -104,24 +88,24 @@ bool Game::searchInArray(int x, int y) {
     bool canPlaceMineraux = true;
 
     //Find mouton;
-    for (int i = 0; i < this->number_mouton; ++i) {
-        if (this->listeMouton[i].coordonates[0] == x && this->listeMouton[i].coordonates[1] == y) {
+    for (Mouton &mouton : this->listeMouton) {
+        if (mouton.coordonates[0] == x && mouton.coordonates[1] == y) {
             canPlaceMouton = false;
             break;
         }
     }
 
     //Find loup;
-    for (int i = 0; i < this->number_loup; ++i) {
-        if (this->listeLoup[i].coordonates[0] == x && this->listeLoup[i].coordonates[1] == y) {
+    for (Loup &loup : this->listeLoup) {
+        if (loup.coordonates[0] == x && loup.coordonates[1] == y) {
             canPlaceLoup = false;
             break;
         }
     }
 
     //Find mineraux;
-    for (int i = 0; i < this->number_mineraux; ++i) {
-        if (this->listeMineraux[i].coordonates[0] == x && this->listeMineraux[i].coordonates[1] == y) {
+    for (Mineraux &mineraux : this->listeMineraux) {
+        if (mineraux.coordonates[0] == x && mineraux.coordonates[1] == y) {
             canPlaceMineraux = false;
             break;
         }
