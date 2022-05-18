@@ -24,11 +24,15 @@ public:
     int size[2];
     int number_loup = 5;
     int number_mouton = 10;
-    int number_mineraux = 20;
+    int number_mineraux = 10;
+    int number_herbe = 10;
     vector<Loup> listeLoup;
     vector<Mouton> listeMouton;
     vector<Mineraux> listeMineraux;
+    vector<Herbe> listeHerbe;
     string state;
+
+    Game(int numberLoup, int numberMouton, int numberMineraux, int numberHerbe);
 
     Game(int number_loup, int number_mouton, int number_mineraux, int x, int y);
 
@@ -48,9 +52,21 @@ public:
 
     void addMineraux(int nombre);
 
+    void addHerbe(int nombre);
+
     int * generateCoordonate();
 
     bool searchInArray(int x, int y);
+
+    string getBlockType(int x, int y);
+
+    void moutonMangeHerbe(int x, int y, Mouton& mouton);
+
+    void loupMangeMouton(int x, int y, Loup& loup);
+
+    void changeHerbeMineraux(int x, int y, Mineraux& mineraux);
+
+    void changeBlockType(int x, int y, Block& mineraux);
 };
 
 

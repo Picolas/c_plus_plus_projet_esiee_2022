@@ -12,5 +12,6 @@ const string MOUTON = "Mouton";
 const string LOUP = "Loup";
 const string HERBE = "Herbe";
 const string MINERAUX = "Mineraux";
+const string CASE_VIDE = "Case Vide";
 
 #endif //C_PLUS_PLUS_PROJET_ESIEE_2022_CONSTANTS_H

@@ -12,6 +12,13 @@ Game::Game(int x, int y) {
     this->setSize(x, y);
 }
 
+Game::Game(int numberLoup, int numberMouton, int numberMineraux, int numberHerbe) : number_loup(numberLoup),
+                                                                                    number_mouton(numberMouton),
+                                                                                    number_mineraux(numberMineraux),
+                                                                                    number_herbe(numberHerbe) {
+
+}
+
 Game::Game() {
     this->startGame();
 }
@@ -62,6 +69,16 @@ void Game::addMineraux(int nombre) {
     }
 }
 
+void Game::addHerbe(int nombre) {
+    int * resultCoordonate;
+    for (int i = 0; i < nombre; ++i) {
+        resultCoordonate = generateCoordonate();
+
+        Herbe herbe(resultCoordonate[0], resultCoordonate[1]);
+        this->listeHerbe.push_back(herbe);
+    }
+}
+
 int * Game::generateCoordonate() {
     srand (time(NULL));
 
@@ -86,6 +103,7 @@ bool Game::searchInArray(int x, int y) {
     bool canPlaceMouton = true;
     bool canPlaceLoup = true;
     bool canPlaceMineraux = true;
+    bool canPlaceHerbe = true;
 
     //Find mouton;
     for (Mouton &mouton : this->listeMouton) {
@@ -111,18 +129,67 @@ bool Game::searchInArray(int x, int y) {
         }
     }
 
-    if (canPlaceMouton && canPlaceLoup  && canPlaceMineraux) {
+    //Find herbe;
+    for (Herbe &herbe : this->listeHerbe) {
+        if (herbe.coordonates[0] == x && herbe.coordonates[1] == y) {
+            canPlaceHerbe = false;
+            break;
+        }
+    }
+
+    if (canPlaceMouton && canPlaceLoup  && canPlaceMineraux && canPlaceHerbe) {
         return true;
     }
 
     return false;
 }
 
-void moutonMangeHerbe(int x, int y, Mouton& mouton);
+string Game::getBlockType(int x, int y) {
+    //Find mouton;
+    for (Mouton &mouton : this->listeMouton) {
+        if (mouton.coordonates[0] == x && mouton.coordonates[1] == y) {
+            return MOUTON;
+        }
+    }
 
-void loupMangeMouton(int x, int y, Loup& loup);
+    //Find loup;
+    for (Loup &loup : this->listeLoup) {
+        if (loup.coordonates[0] == x && loup.coordonates[1] == y) {
+            return LOUP;
+        }
+    }
 
-void changeHerbeMineraux(int x, int y, Mineraux& mineraux);
+    //Find mineraux;
+    for (Mineraux &mineraux : this->listeMineraux) {
+        if (mineraux.coordonates[0] == x && mineraux.coordonates[1] == y) {
+            return MINERAUX;
+        }
+    }
 
-void changeBlockType(int x, int y, Block& mineraux);
+    //Find herbe;
+    for (Herbe &herbe : this->listeHerbe) {
+        if (herbe.coordonates[0] == x && herbe.coordonates[1] == y) {
+            return HERBE;
+        }
+    }
+
+    return CASE_VIDE;
+}
+
+void Game::moutonMangeHerbe(int x, int y, Mouton &mouton) {
+    if (getBlockType(x, y) == HERBE) {
+        mouton.faim = 5;
+
+        //this->listeHerbe.
+        //this->listeHerbe.
+    }
+}
+
+void Game::loupMangeMouton(int x, int y, Loup &loup) {
+    if (getBlockType(x, y) == MOUTON) {
+        loup.faim = 10;
+    }
+}
+
+
 
