@@ -184,14 +184,17 @@ string Game::getBlockType(int x, int y) {
     return CASE_VIDE;
 }
 
-void Game::moutonMangeHerbe(int x, int y, Mouton &mouton) {
-    if (getBlockType(x, y) == HERBE) {
+void Game::moutonMangeHerbe(Herbe& herbe, Mouton &mouton) {
+    if (getBlockType(herbe.coordonates[0], herbe.coordonates[1]) == HERBE) {
+        Evenements event(MOUTON_MANGE_HERBE, herbe.coordonates[0], herbe.coordonates[1]);
+        this->listeEvenements.push_back(event);
+
         mouton.faim = 5;
 
         //find herbe;
         int indexHerbe = 0;
-        for(Herbe herbe: this->listeHerbe) {
-            if (herbe.coordonates[0] == x && herbe.coordonates[1] == y) {
+        for(Herbe _herbe: this->listeHerbe) {
+            if (_herbe.coordonates[0] == herbe.coordonates[0] && _herbe.coordonates[1] == herbe.coordonates[1]) {
                 break;
             }
             indexHerbe++;
@@ -201,14 +204,17 @@ void Game::moutonMangeHerbe(int x, int y, Mouton &mouton) {
     }
 }
 
-void Game::loupMangeMouton(int x, int y, Loup &loup) {
-    if (getBlockType(x, y) == MOUTON) {
+void Game::loupMangeMouton(Mouton& mouton, Loup &loup) {
+    if (getBlockType(mouton.coordonates[0], mouton.coordonates[1]) == MOUTON) {
+        Evenements event(MOUTON_MEURT_LOUP, mouton.coordonates[0], mouton.coordonates[1]);
+        this->listeEvenements.push_back(event);
+
         loup.faim = 10;
 
         //find mouton;
         int indexMouton = 0;
-        for(Mouton mouton: this->listeMouton) {
-            if (mouton.coordonates[0] == x && mouton.coordonates[1] == y) {
+        for(Mouton _mouton: this->listeMouton) {
+            if (_mouton.coordonates[0] == mouton.coordonates[0] && _mouton.coordonates[1] == mouton.coordonates[1]) {
                 break;
             }
             indexMouton++;
@@ -216,7 +222,7 @@ void Game::loupMangeMouton(int x, int y, Loup &loup) {
 
         this->listeMouton.erase( this->listeMouton.begin() + indexMouton);
 
-        Mineraux mineraux(x, y);
+        Mineraux mineraux(mouton.coordonates[0], mouton.coordonates[1]);
         this->listeMineraux.push_back(mineraux);
     }
 }
@@ -239,9 +245,15 @@ void Game::changerMinerauxEnHerbe(Mineraux &mineraux) {
 
     Herbe herbe(x, y);
     this->listeHerbe.push_back(herbe);
+
+    Evenements event(HERBE_POUSSE, herbe.coordonates[0], herbe.coordonates[1]);
+    this->listeEvenements.push_back(event);
 }
 
-void Game::killMouton(Mouton &mouton) {
+void Game::killMouton(Mouton &mouton, string type) {
+    Evenements event(type, mouton.coordonates[0], mouton.coordonates[1]);
+    this->listeEvenements.push_back(event);
+
     //find mouton;
     int indexMouton = 0;
     for(Mouton _mouton: this->listeMouton) {
@@ -254,7 +266,10 @@ void Game::killMouton(Mouton &mouton) {
     this->listeMouton.erase( this->listeMouton.begin() + indexMouton);
 }
 
-void Game::killLoup(Loup &loup) {
+void Game::killLoup(Loup &loup, string type) {
+    Evenements event(type, loup.coordonates[0], loup.coordonates[1]);
+    this->listeEvenements.push_back(event);
+
     //find loup;
     int indexLoup = 0;
     for(Loup _loup: this->listeLoup) {
@@ -310,6 +325,36 @@ string Game::secondLine() {
 string Game::letterLine() {
     string line = " ";
 
+}
+
+char Game::intToLetter(int value) {
+    return (char)(value + 64);
+}
+
+void Game::showEvents() {
+    for (Evenements event: listeEvenements) {
+        string result = "[" + to_string(event.coordonates[0]) + intToLetter(event.coordonates[1]) + "] " + event.type;
+        cout << result << endl;
+    }
+    /*
+     * BUG EN ATTENTE POUR STACKER
+    int indexCurrentEvent = 0;
+    for (Evenements event: listeEvenements) {
+        string result = "[" + to_string(event.coordonates[0]) + intToLetter(event.coordonates[1]);
+        string eventType = event.type;
+        int indexEvent = 0;
+
+        for (int i = 0; i < listeEvenements.size(); i++) {
+            if(event.type == listeEvenements[i].type && (event.coordonates[0] != listeEvenements[i].coordonates[0] || event.coordonates[1] != listeEvenements[i].coordonates[1])) {
+                result += ", " + to_string(listeEvenements[i].coordonates[0]) + intToLetter(listeEvenements[i].coordonates[1]);
+                this->listeEvenements.erase( this->listeEvenements.begin() + indexEvent);
+            }
+            indexEvent++;
+        }
+        result += "] " + eventType;
+        cout << result << endl;
+    }
+    */
 }
 
 

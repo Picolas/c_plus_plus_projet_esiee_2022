@@ -13,4 +13,6 @@ add_executable(c_plus_plus_projet_esiee_2022 main.cpp
         Class/Constants/Constants.h
         Class/Block/World/Herbe.cpp Class/Block/World/Herbe.h
         Class/Block/World/Mineraux.cpp Class/Block/World/Mineraux.h
-        Class/Block/Block.cpp Class/Block/Block.h)
+        Class/Block/Block.cpp Class/Block/Block.h
+        Class/Events/Evenements.cpp Class/Events/Evenements.h
+        )

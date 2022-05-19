@@ -9,6 +9,7 @@
 #include "../Block/World/Mineraux.h"
 #include "../Block/World/Herbe.h"
 #include "../Constants/Constants.h"
+#include "../Events/Evenements.h"
 #include <cstdlib>
 #include <string>
 #include <ctime>
@@ -32,6 +33,7 @@ public:
     vector<Mouton> listeMouton;
     vector<Mineraux> listeMineraux;
     vector<Herbe> listeHerbe;
+    vector<Evenements> listeEvenements;
     string state;
 
     Game(int numberLoup, int numberMouton, int numberMineraux, int numberHerbe, int x, int y);
@@ -62,15 +64,15 @@ public:
 
     string getBlockType(int x, int y);
 
-    void moutonMangeHerbe(int x, int y, Mouton& mouton);
+    void moutonMangeHerbe(Herbe& herbe, Mouton& mouton);
 
-    void loupMangeMouton(int x, int y, Loup& loup);
+    void loupMangeMouton(Mouton& mouton, Loup& loup);
 
     void changerMinerauxEnHerbe(Mineraux& mineraux);
 
-    void killMouton(Mouton& mouton);
+    void killMouton(Mouton& mouton, string type);
 
-    void killLoup(Loup& loup);
+    void killLoup(Loup& loup, string type);
 
     void showGame();
 
@@ -81,6 +83,10 @@ public:
     string secondLine();
 
     string letterLine();
+
+    char intToLetter(int value);
+
+    void showEvents();
 };
 
 
