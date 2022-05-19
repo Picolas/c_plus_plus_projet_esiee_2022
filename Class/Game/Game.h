@@ -13,6 +13,7 @@
 #include <string>
 #include <ctime>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 #define C_PLUS_PLUS_PROJET_ESIEE_2022_GAME_H
@@ -26,7 +27,7 @@ public:
     int number_mouton = 10;
     int number_mineraux = 10;
     int number_herbe = 10;
-    vector<vector<Block*>> listeBlock; //  = vector<vector<Block>>(50, vector<Block>(50));
+    //vector<vector<Block*>> listeBlock; //  = vector<vector<Block>>(50, vector<Block>(50));
     vector<Loup> listeLoup;
     vector<Mouton> listeMouton;
     vector<Mineraux> listeMineraux;
@@ -65,23 +66,21 @@ public:
 
     void loupMangeMouton(int x, int y, Loup& loup);
 
-    void changeHerbeMineraux(int x, int y, Mineraux& mineraux);
+    void changerMinerauxEnHerbe(Mineraux& mineraux);
 
-    void changeBlockType(int x, int y, Block& mineraux);
+    void killMouton(Mouton& mouton);
 
-    //void initMap();
+    void killLoup(Loup& loup);
 
-    void fillMapBlock();
+    void showGame();
 
-    void rezizeListBlock();
+    string linePlusMoins();
 
-    void showGame() {
-        for (int i = 0; i < this->size[0] * 5; ++i) {
-            for (int j = 0; j < size[1] * 5; ++j) {
+    string firstLine();
 
-            }
-        }
-    }
+    string secondLine();
+
+    string letterLine();
 };
 
 
