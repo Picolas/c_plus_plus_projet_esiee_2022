@@ -214,17 +214,8 @@ void Game::loupMangeMouton(int x, int y, Loup &loup) {
     }
 }
 
+/*
 void Game::initMap() {
-    this->listeBlock.resize(this->size[0]);
-    for ( int i = 0 ; i < this->size[1] ; i++ )
-        this->listeBlock[i].resize(this->size[1]);
-
-    for (int i = 0; i < this->size[0]; ++i) {
-        for (int j = 0; j < size[1]; ++j) {
-            this->listeBlock[i][j] = Block(i, j);
-        }
-    }
-
     for (Mineraux &mineraux : this->listeMineraux) {
         this->listeBlock[mineraux.coordonates[0]][mineraux.coordonates[1]] = mineraux;
     }
@@ -241,6 +232,7 @@ void Game::initMap() {
         this->listeBlock[mouton.coordonates[0]][mouton.coordonates[1]] = mouton;
     }
 }
+*/
 
 void Game::fillMapBlock() {
     this->rezizeListBlock();

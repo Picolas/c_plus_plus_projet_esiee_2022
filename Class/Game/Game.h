@@ -69,7 +69,7 @@ public:
 
     void changeBlockType(int x, int y, Block& mineraux);
 
-    void initMap();
+    //void initMap();
 
     void fillMapBlock();
 
