@@ -243,11 +243,16 @@ void Game::initMap() {
 }
 
 void Game::fillMapBlock() {
+    this->rezizeListBlock();
     for (int i = 0; i < this->size[0]; ++i) {
         for (int j = 0; j < this->size[1]; ++j) {
             this->listeBlock[i][j] = Block(i, j);
         }
     }
+}
+
+void Game::rezizeListBlock() {
+    this->listeBlock.resize(this->size[0], vector<Block>(this->size[0]));
 }
 
 

@@ -26,7 +26,7 @@ public:
     int number_mouton = 10;
     int number_mineraux = 10;
     int number_herbe = 10;
-    vector<vector<Block>> listeBlock;
+    vector<vector<Block>> listeBlock; //  = vector<vector<Block>>(50, vector<Block>(50));
     vector<Loup> listeLoup;
     vector<Mouton> listeMouton;
     vector<Mineraux> listeMineraux;
@@ -72,6 +72,8 @@ public:
     void initMap();
 
     void fillMapBlock();
+
+    void rezizeListBlock();
 
     void showGame() {
         for (int i = 0; i < this->size[0] * 5; ++i) {
