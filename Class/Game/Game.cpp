@@ -55,7 +55,7 @@ void Game::addLoup(int nombre) {
     for (int i = 0; i < nombre; ++i) {
         resultCoordonate = generateCoordonate();
 
-        Loup loup(resultCoordonate[0], resultCoordonate[1]);
+        Loup *loup = new Loup(resultCoordonate[0], resultCoordonate[1]);
         //this->listeLoup.push_back(loup);
         this->listeBlock[resultCoordonate[0]][resultCoordonate[1]] = loup;
     }
@@ -66,7 +66,7 @@ void Game::addMouton(int nombre) {
     for (int i = 0; i < nombre; ++i) {
         resultCoordonate = generateCoordonate();
 
-        Mouton mouton(resultCoordonate[0], resultCoordonate[1]);
+        Mouton * mouton = new Mouton(resultCoordonate[0], resultCoordonate[1]);
         //this->listeMouton.push_back(mouton);
         this->listeBlock[resultCoordonate[0]][resultCoordonate[1]] = mouton;
     }
@@ -77,7 +77,7 @@ void Game::addMineraux(int nombre) {
     for (int i = 0; i < nombre; ++i) {
         resultCoordonate = generateCoordonate();
 
-        Mineraux mineraux(resultCoordonate[0], resultCoordonate[1]);
+        Mineraux * mineraux = new Mineraux(resultCoordonate[0], resultCoordonate[1]);
         //this->listeMineraux.push_back(mineraux);
         this->listeBlock[resultCoordonate[0]][resultCoordonate[1]] = mineraux;
     }
@@ -88,7 +88,7 @@ void Game::addHerbe(int nombre) {
     for (int i = 0; i < nombre; ++i) {
         resultCoordonate = generateCoordonate();
 
-        Herbe herbe(resultCoordonate[0], resultCoordonate[1]);
+        Herbe * herbe = new Herbe(resultCoordonate[0], resultCoordonate[1]);
         //this->listeHerbe.push_back(herbe);
         this->listeBlock[resultCoordonate[0]][resultCoordonate[1]] = herbe;
     }
@@ -115,7 +115,7 @@ int * Game::generateCoordonate() {
 }
 
 bool Game::searchInArray(int x, int y) {
-    if (this->listeBlock[x][y].type == CASE_VIDE) {
+    if (this->listeBlock[x][y]->type == CASE_VIDE) {
         return true;
     }
     return false;
@@ -165,7 +165,7 @@ bool Game::searchInArray(int x, int y) {
 }
 
 string Game::getBlockType(int x, int y) {
-    return this->listeBlock[x][y].type;
+    return this->listeBlock[x][y]->type;
 
     //Find mouton;
     for (Mouton &mouton : this->listeMouton) {
@@ -202,7 +202,8 @@ void Game::moutonMangeHerbe(int x, int y, Mouton &mouton) {
     if (getBlockType(x, y) == HERBE) {
         mouton.faim = 5;
 
-        this->listeBlock[x][y] = Block(x, y);
+        Block * block = new Block(x, y);
+        this->listeBlock[x][y] = block;
     }
 }
 
@@ -210,7 +211,8 @@ void Game::loupMangeMouton(int x, int y, Loup &loup) {
     if (getBlockType(x, y) == MOUTON) {
         loup.faim = 10;
 
-        this->listeBlock[x][y] = Mineraux(x, y);
+        Mineraux * mineraux = new Mineraux(x, y);
+        this->listeBlock[x][y] = mineraux;
     }
 }
 
@@ -238,13 +240,14 @@ void Game::fillMapBlock() {
     this->rezizeListBlock();
     for (int i = 0; i < this->size[0]; ++i) {
         for (int j = 0; j < this->size[1]; ++j) {
-            this->listeBlock[i][j] = Block(i, j);
+            Block * block = new Block(i, j);
+            this->listeBlock[i][j] = block;
         }
     }
 }
 
 void Game::rezizeListBlock() {
-    this->listeBlock.resize(this->size[0], vector<Block>(this->size[0]));
+    this->listeBlock.resize(this->size[0], vector<Block*>(this->size[0]));
 }
 
 

@@ -16,7 +16,6 @@ public:
     Block(int x, int y);
 
     int coordonates[2]{};
-
     string type = CASE_VIDE;
 };
 
