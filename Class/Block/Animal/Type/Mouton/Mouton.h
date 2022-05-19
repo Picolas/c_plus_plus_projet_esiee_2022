@@ -10,6 +10,8 @@
 class Mouton: public Animal {
 
 public:
+
+    string type = MOUTON;
     int faim = 5;
     int vie = 50;
 

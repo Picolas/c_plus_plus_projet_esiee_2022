@@ -10,6 +10,8 @@
 class Mineraux: public Block {
 public:
 
+    string type = MINERAUX;
+
     Mineraux(int x, int y);
 
     Mineraux();

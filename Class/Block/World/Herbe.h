@@ -10,6 +10,9 @@
 class Herbe: public Block {
 
 public:
+
+    string type = HERBE;
+
     Herbe();
 
     Herbe(int x, int y);

@@ -10,6 +10,8 @@
 class Loup: public Animal {
 
 public:
+
+    string type = LOUP;
     int faim = 10;
     int vie = 60;
 

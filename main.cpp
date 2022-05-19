@@ -6,12 +6,15 @@ int main() {
 
     Game game(50, 50);
 
-    game.addLoup(10);
 
-    game.listeLoup;
+    game.listeBlock;
 
-    for (Loup loup : game.listeLoup) {
-        cout << loup.coordonates[0] << endl;
+    cout << typeid(game).name();
+
+    for (int i = 0; i < game.size[0]; ++i) {
+        for (int j = 0; j < game.size[1]; ++j) {
+            cout << game.listeBlock[i][j].type << endl;
+        }
     }
 
     return 0;

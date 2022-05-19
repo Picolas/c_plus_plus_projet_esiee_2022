@@ -12,6 +12,8 @@ class Animal: public Block {
     int vie = 0;
 
 public:
+    string type = ANIMAL;
+
     Animal(int x, int y);
 
     Animal();
