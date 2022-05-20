@@ -7,7 +7,7 @@ int main() {
     Game game(12, 12);
 
     for (Mouton mouton : game.listeMouton) {
-        cout << to_string(mouton.coordonates[0]) << ", " << to_string(mouton.coordonates[1]) << endl;
+        cout << to_string(mouton.coordonates[0] + 1) << ", " << to_string(mouton.coordonates[1] + 1) << endl;
     }
 
     game.loupMangeMouton(game.listeMouton[0], game.listeLoup[0]);

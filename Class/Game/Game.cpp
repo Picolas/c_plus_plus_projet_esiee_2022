@@ -328,12 +328,12 @@ string Game::letterLine() {
 }
 
 char Game::intToLetter(int value) {
-    return (char)(value + 64);
+    return (char)(value + 1 + 64);
 }
 
 void Game::showEvents() {
     for (Evenements event: listeEvenements) {
-        string result = "[" + to_string(event.coordonates[0]) + intToLetter(event.coordonates[1]) + "] " + event.type;
+        string result = "[" + to_string(event.coordonates[0] + 1) + intToLetter(event.coordonates[1]) + "] " + event.type;
         cout << result << endl;
     }
     /*
