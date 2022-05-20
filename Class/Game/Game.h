@@ -24,6 +24,7 @@ class Game {
 public:
 
     int size[2];
+    int tiret_space = 5;
     int number_loup = 5;
     int number_mouton = 10;
     int number_mineraux = 10;

@@ -301,12 +301,25 @@ void Game::killLoup(Loup &loup, string type) {
 string Game::firstLine() {
     // first line
     string line = "  ";
+    int taille = 10;
+    int space_to_del = 0;
     for (int i = 0; i < this->size[0]; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (j == 5) {
+        if( i > taille) {
+            space_to_del += 1;
+            taille *= 10;
+        }
+        line += " "; // espace de la colonne arrière
+        for (int j = 0; j < this->tiret_space; j++){
+            if(j == tiret_space/2){
                 line += to_string(i + 1);
-            } else {
+            }
+            else {
                 line += " ";
+            }
+            if ( space_to_del != 0 ){
+                for (int k = 0; k < space_to_del; k++){
+                    line.substr (0,line.length()-1);
+                }
             }
         }
     }
@@ -314,25 +327,65 @@ string Game::firstLine() {
 }
 
 void Game::showGame() {
-    cout << this->firstLine() << endl;
-    cout << this->secondLine() << endl;
-    for (int i = 0; i < this->size[0]; ++i) {
-        for (int j = 0; j < size[1]; ++j) {
-
-        }
+    //calcul de l'espacement entre chaque zone en fonction de la taille de la fenetre du jeu
+    int taille = 10;
+    int separator_space = 2;
+    while(taille < this->size[0]){
+        this->tiret_space += 2;
+        taille *= 10;
     }
-    cout << this->secondLine() << endl;
+    // calcul du blanc à mettre si aucune objet dans la case
+    string blanc = "";
+    for (int j = 0; j < this->tiret_space; j++){
+        blanc += " ";
+    }
+    // calcul du nbr d'espace à mettre de chaque cote de la lettre de l'objet
+    string blockspace = "";
+    for (int j = 0; j < this->tiret_space/2; j++){
+        blockspace += " ";
+    }
+    cout << this->firstLine() << endl; // affichage de la première ligne contenant les chiffres
+    cout << this->secondLine() << endl; // démarrage de l'affichage du jeu
+    string separator = ""; // espace séparant la grille du bord de l'écran
+    for (int i = 0; i < separator_space; i++){
+        separator += " ";
+    }
+    for (int i = 0; i < this->size[1]; i++) {
+        cout << (char)('A' + i);
+        for (int j = 0; j < size[0]; j++) {
+            separator += "|" ;//+ blanc;
+            string block = getBlockType(i,j);
+            if (block != CASE_VIDE){
+                if(block == MOUTON) separator += blockspace + "M" + blockspace;
+                else if (block == LOUP) separator += blockspace + "L" + blockspace;
+                else if (block == HERBE) separator += blockspace + "H" + blockspace;
+                else if (block == MINERAUX) separator += blockspace + "M" + blockspace;
+            }
+            else{
+                separator += blanc;
+            }
+        }
+        cout << separator; // écriture de la ligne traité
+        cout << "|" << endl; // ajout de séparateur de fin
+        if ( i > 26 ) separator = " "; // vérifie si on a dépasser le Z // todo : faire la conversion au AA-ZZ
+        else separator = "  "; // remise à zéro du séparateur pour la nouvelle ligne
+        cout << this->secondLine() << endl; // affichage de la ligne du dessous ( aussi le contour bas )
+    }
 }
 
 string Game::secondLine() {
-    string line = "   ";
+    string line = "   "; // démarrer avec une séparation de 3 ( colle au reste de l'affichage
+    string tiret = "";
+    for (int j = 0; j < this->tiret_space; j++){
+        tiret += "-";
+    }
     for (int i = 0; i < this->size[0]; ++i) {
         if (i == 0) {
-            line += "+-------";
+            line += "+" + tiret;
         } else if (i >= this->size[0] - 1) {
-            line += "+-------+";
+            line += "+" + tiret + "+";
         } else {
-            line += "+-------";
+            line += "+" + tiret;
         }
     }
     return line;
