@@ -56,6 +56,9 @@ void Game::gameLoop() {
         //check si un loup meurt de faim ou vieillesse
         this->checkDieLoup();
 
+        //Bouger mouton
+        this->bestMoveMouton();
+
 
     }
 }
@@ -400,6 +403,44 @@ void Game::removeFaim() {
     for (Loup loup : this->listeLoup) {
         loup.faim -= 1;
     }
+}
+
+void Game::bestMoveMouton() {
+    for(Mouton mouton : this->listeMouton) {
+        bool findHerbe = false;
+        for (int i = -2; i < 2; ++i) {
+            for (int j = -2; j < 2; ++j) {
+                if (getBlockType(mouton.coordonates[0] + i, mouton.coordonates[1] + i) == HERBE) {
+                    findHerbe = true;
+                    if (getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == CASE_VIDE || getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == HERBE || getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == MINERAUX) {
+                        mouton.coordonates[0] = numberNotSupOrMinOne(i);
+                        mouton.coordonates[1] = numberNotSupOrMinOne(j);
+                    } else {
+                        findHerbe = false;
+                    }
+                }
+            }
+        }
+        if (!findHerbe) {
+            for (int i = -2; i < 2; ++i) {
+                for (int j = -2; j < 2; ++j) {
+                    if (getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == CASE_VIDE || getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == HERBE || getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == MINERAUX) {
+                        mouton.coordonates[0] = numberNotSupOrMinOne(i);
+                        mouton.coordonates[1] = numberNotSupOrMinOne(j);
+                    }
+                }
+            }
+        }
+        cout << "le mouton a bougé";
+    }
+}
+
+int Game::numberNotSupOrMinOne(int number) {
+    if (number >= 1)
+        return 1;
+    if (number <= -1)
+        return -1;
+    return 0;
 }
 
 

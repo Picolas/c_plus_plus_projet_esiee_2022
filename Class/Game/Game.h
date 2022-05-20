@@ -93,6 +93,12 @@ public:
     void checkDieLoup();
 
     void removeFaim();
+
+    void bestMoveMouton();
+
+    void bestMoveLoup();
+
+    int numberNotSupOrMinOne(int number);
 };
 
 
