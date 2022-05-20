@@ -87,6 +87,12 @@ public:
     char intToLetter(int value);
 
     void showEvents();
+
+    void checkDieMouton();
+
+    void checkDieLoup();
+
+    void removeFaim();
 };
 
 

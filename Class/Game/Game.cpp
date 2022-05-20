@@ -10,6 +10,7 @@ Game::Game(int number_loup, int number_mouton, int number_mineraux, int x, int y
     this->addMouton(number_mouton);
     this->addHerbe(number_herbe);
     this->addMineraux(number_mineraux);
+    this->startGame();
 }
 
 Game::Game(int x, int y) {
@@ -18,6 +19,7 @@ Game::Game(int x, int y) {
     this->addMouton(number_mouton);
     this->addHerbe(number_herbe);
     this->addMineraux(number_mineraux);
+    this->startGame();
 }
 
 Game::Game(int numberLoup, int numberMouton, int numberMineraux, int numberHerbe, int x, int y) : number_loup(numberLoup),
@@ -38,11 +40,22 @@ void Game::setSize(int x, int y) {
 
 void Game::startGame() {
     this->state = "started";
+    this->gameLoop();
 }
 
 
 void Game::gameLoop() {
     while(this->state == "started") {
+
+        // On retire 1 de faim aux mouton et loup en début de tour
+        this->removeFaim();
+
+        //check si un mouton meurt de faim ou vieillesse
+        this->checkDieMouton();
+
+        //check si un loup meurt de faim ou vieillesse
+        this->checkDieLoup();
+
 
     }
 }
@@ -355,6 +368,38 @@ void Game::showEvents() {
         cout << result << endl;
     }
     */
+}
+
+void Game::checkDieMouton() {
+    for (Mouton mouton : this->listeMouton) {
+        if (mouton.faim == 0) {
+            this->killMouton(mouton, MOUTON_MEURT_FAIM);
+        }
+        if (mouton.vie == 0) {
+            this->killMouton(mouton, MOUTON_MEURT_VIELLESSE);
+        }
+    }
+}
+
+void Game::checkDieLoup() {
+    for (Loup loup : this->listeLoup) {
+        if (loup.faim <= 0) {
+            this->killLoup(loup, LOUP_MEURT_FAIM);
+        }
+        if (loup.vie <= 0) {
+            this->killLoup(loup, LOUP_MEURT_VIELLESSE);
+        }
+    }
+}
+
+void Game::removeFaim() {
+    for (Mouton mouton : this->listeMouton) {
+        mouton.faim -= 1;
+    }
+
+    for (Loup loup : this->listeLoup) {
+        loup.faim -= 1;
+    }
 }
 
 
