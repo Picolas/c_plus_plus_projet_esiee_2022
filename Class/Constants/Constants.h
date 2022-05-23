@@ -24,4 +24,7 @@ const string MOUTON_MEURT_VIELLESSE = "Un mouton meurt de vieillesse";
 const string MOUTON_MANGE_HERBE = "De l'herbe a été mangé par un mouton";
 const string HERBE_POUSSE = "De l'herbe repousse !";
 
+// Tirets
+const int TIRETS = 5;
+
 #endif //C_PLUS_PLUS_PROJET_ESIEE_2022_CONSTANTS_H

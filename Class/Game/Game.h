@@ -24,7 +24,7 @@ class Game {
 public:
 
     int size[2];
-    int tiret_space = 5;
+    int tiret_space = TIRETS;
     int number_loup = 5;
     int number_mouton = 10;
     int number_mineraux = 10;
@@ -100,6 +100,8 @@ public:
     void bestMoveLoup();
 
     int numberNotSupOrMinOne(int number);
+
+    void setShowGameDimansions();
 };
 
 

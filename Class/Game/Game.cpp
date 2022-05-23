@@ -19,7 +19,8 @@ Game::Game(int x, int y) {
     this->addMouton(number_mouton);
     this->addHerbe(number_herbe);
     this->addMineraux(number_mineraux);
-    this->startGame();
+    this->setShowGameDimansions();
+    //this->startGame();
 }
 
 Game::Game(int numberLoup, int numberMouton, int numberMineraux, int numberHerbe, int x, int y) : number_loup(numberLoup),
@@ -57,7 +58,7 @@ void Game::gameLoop() {
         this->checkDieLoup();
 
         //Bouger mouton
-        this->bestMoveMouton();
+        //this->bestMoveMouton();
 
 
     }
@@ -302,22 +303,22 @@ string Game::firstLine() {
     // first line
     string line = "  ";
     int taille = 10;
-    int space_to_del = 0;
+    int spaceToDel = 0;
     for (int i = 0; i < this->size[0]; ++i) {
         if( i > taille) {
-            space_to_del += 1;
+            spaceToDel += 1;
             taille *= 10;
         }
-        line += " "; // espace de la colonne arrière
+        line += " "; // espace de la colonne arriÃ¨re
         for (int j = 0; j < this->tiret_space; j++){
-            if(j == tiret_space/2){
+            if(j == this->tiret_space / 2){
                 line += to_string(i + 1);
             }
             else {
                 line += " ";
             }
-            if ( space_to_del != 0 ){
-                for (int k = 0; k < space_to_del; k++){
+            if (spaceToDel != 0 ){
+                for (int k = 0; k < spaceToDel; k++){
                     line.substr (0,line.length()-1);
                 }
             }
@@ -326,55 +327,64 @@ string Game::firstLine() {
     return line;
 }
 
-void Game::showGame() {
-    //calcul de l'espacement entre chaque zone en fonction de la taille de la fenetre du jeu
+void Game::setShowGameDimansions() {
     int taille = 10;
-    int separator_space = 2;
     while(taille < this->size[0]){
         this->tiret_space += 2;
         taille *= 10;
     }
-    // calcul du blanc à mettre si aucune objet dans la case
+}
+
+void Game::showGame() {
+    //calcul de l'espacement entre chaque zone en fonction de la taille de la fenetre du jeu
+    int separator_space = 2;
+
+    // calcul du blanc ï¿½ mettre si aucune objet dans la case
     string blanc = "";
     for (int j = 0; j < this->tiret_space; j++){
         blanc += " ";
     }
-    // calcul du nbr d'espace à mettre de chaque cote de la lettre de l'objet
+    // calcul du nbr d'espace ï¿½ mettre de chaque cote de la lettre de l'objet
     string blockspace = "";
-    for (int j = 0; j < this->tiret_space/2; j++){
+    for (int j = 0; j < this->tiret_space / 2; j++){
         blockspace += " ";
     }
-    cout << this->firstLine() << endl; // affichage de la première ligne contenant les chiffres
-    cout << this->secondLine() << endl; // démarrage de l'affichage du jeu
-    string separator = ""; // espace séparant la grille du bord de l'écran
+    cout << this->firstLine() << endl; // affichage de la premiï¿½re ligne contenant les chiffres
+    cout << this->secondLine() << endl; // dï¿½marrage de l'affichage du jeu
+    string separator = ""; // espace sï¿½parant la grille du bord de l'ï¿½cran
     for (int i = 0; i < separator_space; i++){
         separator += " ";
     }
-    for (int i = 0; i < this->size[1]; i++) {
-        cout << (char)('A' + i);
-        for (int j = 0; j < size[0]; j++) {
+    for (int y = 0; y < this->size[1]; y++) {
+        cout << intToLetter(y);
+        for (int x = 0; x < size[0]; x++) {
             separator += "|" ;//+ blanc;
-            string block = getBlockType(i,j);
+            string block = getBlockType(x, y);
             if (block != CASE_VIDE){
-                if(block == MOUTON) separator += blockspace + "M" + blockspace;
-                else if (block == LOUP) separator += blockspace + "L" + blockspace;
-                else if (block == HERBE) separator += blockspace + "H" + blockspace;
-                else if (block == MINERAUX) separator += blockspace + "M" + blockspace;
+                if(block == MOUTON) {
+                    separator += blockspace + "M" + blockspace;
+                } else if (block == LOUP) {
+                    separator += blockspace + "L" + blockspace;
+                } else if (block == HERBE) {
+                    separator += blockspace + "H" + blockspace;
+                } else if (block == MINERAUX) {
+                    separator += blockspace + "S" + blockspace;
+                }
             }
             else{
                 separator += blanc;
             }
         }
-        cout << separator; // écriture de la ligne traité
-        cout << "|" << endl; // ajout de séparateur de fin
-        if ( i > 26 ) separator = " "; // vérifie si on a dépasser le Z // todo : faire la conversion au AA-ZZ
-        else separator = "  "; // remise à zéro du séparateur pour la nouvelle ligne
+        cout << separator; // ï¿½criture de la ligne traitï¿½
+        cout << "|" << endl; // ajout de sï¿½parateur de fin
+        if ( y > 26 ) separator = " "; // vï¿½rifie si on a dï¿½passer le Z // todo : faire la conversion au AA-ZZ
+        else separator = "  "; // remise ï¿½ zï¿½ro du sï¿½parateur pour la nouvelle ligne
         cout << this->secondLine() << endl; // affichage de la ligne du dessous ( aussi le contour bas )
     }
 }
 
 string Game::secondLine() {
-    string line = "   "; // démarrer avec une séparation de 3 ( colle au reste de l'affichage
+    string line = "   "; // dï¿½marrer avec une sï¿½paration de 3 ( colle au reste de l'affichage
     string tiret = "";
     for (int j = 0; j < this->tiret_space; j++){
         tiret += "-";
