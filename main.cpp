@@ -4,7 +4,7 @@
 int main() {
 
 
-    Game game(12, 12);
+    Game game(17, 12);
 
 
     for (Mouton mouton : game.listeMouton) {

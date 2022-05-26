@@ -303,24 +303,28 @@ string Game::firstLine() {
     // first line
     string line = "  ";
     int taille = 10;
-    int spaceToDel = 0;
-    for (int i = 0; i < this->size[0]; ++i) {
-        if( i > taille) {
+    int spaceToDel = 1;
+    if (this->size[0] > 10){
+        for (int i = 0; i < this->size[0]; i++){
+            if( i > taille) {
             spaceToDel += 1;
             taille *= 10;
+            }
         }
-        line += " "; // espace de la colonne arrière
+    }
+    for (int i = 0; i < this->size[0]; i++) {
+        line += " "; // espace de la colonne arrière cdt le | séparant chaque colonne
         for (int j = 0; j < this->tiret_space; j++){
-            if(j == this->tiret_space / 2){
+            if(j == (this->tiret_space / 2) + 1){
                 line += to_string(i + 1);
             }
             else {
                 line += " ";
             }
-            if (spaceToDel != 0 ){
-                for (int k = 0; k < spaceToDel; k++){
-                    line.substr (0,line.length()-1);
-                }
+        }
+        if (i > 8){
+            for (int k = 1; k < spaceToDel; k++){
+                line = line.substr (0, line.length()-1);
             }
         }
     }
@@ -356,7 +360,17 @@ void Game::showGame() {
         separator += " ";
     }
     for (int y = 0; y < this->size[1]; y++) {
-        cout << intToLetter(y);
+        if ( y > 25 ) separator = " ";
+        int letter = y;
+        if (y > 25){
+            int second_letter = 0;
+            for(int i = 0; i <= y / 26; i++){
+                second_letter = i;
+            }
+            letter -= (26 * second_letter);
+            cout << intToLetter(second_letter - 1); // -1 car traité a partir de 0 et non 1 dans la fonction
+        }
+        cout << intToLetter(letter); // Affichage de la lettre correspondant à la ligne
         for (int x = 0; x < size[0]; x++) {
             separator += "|" ;//+ blanc;
             string block = getBlockType(x, y);
@@ -377,14 +391,14 @@ void Game::showGame() {
         }
         cout << separator; // �criture de la ligne trait�
         cout << "|" << endl; // ajout de s�parateur de fin
-        if ( y > 26 ) separator = " "; // v�rifie si on a d�passer le Z // todo : faire la conversion au AA-ZZ
-        else separator = "  "; // remise � z�ro du s�parateur pour la nouvelle ligne
+        separator = "  "; // remise � z�ro du s�parateur pour la nouvelle ligne
         cout << this->secondLine() << endl; // affichage de la ligne du dessous ( aussi le contour bas )
     }
 }
 
 string Game::secondLine() {
-    string line = "   "; // d�marrer avec une s�paration de 3 ( colle au reste de l'affichage
+     // d�marrer avec une s�paration de 3 ( colle au reste de l'affichage )
+    string line = "   ";
     string tiret = "";
     for (int j = 0; j < this->tiret_space; j++){
         tiret += "-";
