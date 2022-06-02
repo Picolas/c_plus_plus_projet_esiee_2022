@@ -15,7 +15,6 @@
 #include <ctime>
 #include <vector>
 #include <iostream>
-#include "../Library/termcolor.hpp"
 
 using namespace std;
 #define C_PLUS_PLUS_PROJET_ESIEE_2022_GAME_H
@@ -113,6 +112,8 @@ public:
     void randomMoveLoup();
 
     int getIndexMouton(Mouton& mouton);
+
+    void showNumberLife();
 };
 
 

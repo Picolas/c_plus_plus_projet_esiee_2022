@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "c_plus_plus_projet_esiee_2022"
+			"path" : "c_plus_plus_projet_esiee_2022.exe"
+		},
+		{
+			"path" : "c_plus_plus_projet_esiee_2022.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -35,21 +38,13 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk"
+					"fragment" : "-g  "
 				},
 				{
 					"fragment" : "-std=gnu++14"
 				}
 			],
 			"language" : "CXX",
-			"languageStandard" : 
-			{
-				"backtraces" : 
-				[
-					1
-				],
-				"standard" : "14"
-			},
 			"sourceIndexes" : 
 			[
 				0,
@@ -77,12 +72,16 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "c_plus_plus_projet_esiee_2022",
-	"nameOnDisk" : "c_plus_plus_projet_esiee_2022",
+	"nameOnDisk" : "c_plus_plus_projet_esiee_2022.exe",
 	"paths" : 
 	{
 		"build" : ".",

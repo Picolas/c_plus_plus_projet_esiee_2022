@@ -65,7 +65,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release
+CMAKE_BINARY_DIR = C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/c_plus_plus_projet_esiee_2022.dir/depend.make
@@ -78,7 +78,7 @@ include CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/main.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/main.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/main.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\main.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\main.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/main.cpp.i: cmake_force
@@ -91,7 +91,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/main.cpp.s: cmake_force
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Helpers/Place.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Helpers/Place.cpp.obj: ../Class/Helpers/Place.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Helpers/Place.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Helpers/Place.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Helpers\Place.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Helpers\Place.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Helpers/Place.cpp.i: cmake_force
@@ -104,7 +104,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Helpers/Place.cpp.s: cmake_fo
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Game/Game.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Game/Game.cpp.obj: ../Class/Game/Game.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Game/Game.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Game/Game.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Game\Game.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Game\Game.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Game/Game.cpp.i: cmake_force
@@ -117,7 +117,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Game/Game.cpp.s: cmake_force
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Animal.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Animal.cpp.obj: ../Class/Block/Animal/Animal.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Animal.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Animal.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Block\Animal\Animal.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Block\Animal\Animal.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Animal.cpp.i: cmake_force
@@ -130,7 +130,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Animal.cpp.s: cm
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Loup/Loup.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Loup/Loup.cpp.obj: ../Class/Block/Animal/Type/Loup/Loup.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Loup/Loup.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Loup/Loup.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Block\Animal\Type\Loup\Loup.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Block\Animal\Type\Loup\Loup.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Loup/Loup.cpp.i: cmake_force
@@ -143,7 +143,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Loup/Loup.c
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Mouton/Mouton.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Mouton/Mouton.cpp.obj: ../Class/Block/Animal/Type/Mouton/Mouton.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Mouton/Mouton.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Mouton/Mouton.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Block\Animal\Type\Mouton\Mouton.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Block\Animal\Type\Mouton\Mouton.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Mouton/Mouton.cpp.i: cmake_force
@@ -156,7 +156,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Animal/Type/Mouton/Mout
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Herbe.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Herbe.cpp.obj: ../Class/Block/World/Herbe.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Herbe.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Herbe.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Block\World\Herbe.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Block\World\Herbe.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Herbe.cpp.i: cmake_force
@@ -169,7 +169,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Herbe.cpp.s: cmak
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Mineraux.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Mineraux.cpp.obj: ../Class/Block/World/Mineraux.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Mineraux.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Mineraux.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Block\World\Mineraux.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Block\World\Mineraux.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Mineraux.cpp.i: cmake_force
@@ -182,7 +182,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Mineraux.cpp.s: c
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Block.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Block.cpp.obj: ../Class/Block/Block.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Block.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Block.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Block\Block.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Block\Block.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Block.cpp.i: cmake_force
@@ -195,7 +195,7 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/Block.cpp.s: cmake_forc
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.obj: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/flags.make
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.obj: ../Class/Events/Evenements.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\c_plus_plus_projet_esiee_2022.dir\Class\Events\Evenements.cpp.obj -c C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\Class\Events\Evenements.cpp
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.i: cmake_force
@@ -236,7 +236,7 @@ c_plus_plus_projet_esiee_2022.exe: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/
 c_plus_plus_projet_esiee_2022.exe: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/linklibs.rsp
 c_plus_plus_projet_esiee_2022.exe: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/objects1.rsp
 c_plus_plus_projet_esiee_2022.exe: CMakeFiles/c_plus_plus_projet_esiee_2022.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable c_plus_plus_projet_esiee_2022.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable c_plus_plus_projet_esiee_2022.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\c_plus_plus_projet_esiee_2022.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -249,6 +249,6 @@ CMakeFiles/c_plus_plus_projet_esiee_2022.dir/clean:
 .PHONY : CMakeFiles/c_plus_plus_projet_esiee_2022.dir/clean
 
 CMakeFiles/c_plus_plus_projet_esiee_2022.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022 C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022 C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-release\CMakeFiles\c_plus_plus_projet_esiee_2022.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022 C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022 C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug C:\Users\Picolas\Documents\Cplusplus\c_plus_plus_projet_esiee_2022\cmake-build-debug\CMakeFiles\c_plus_plus_projet_esiee_2022.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/c_plus_plus_projet_esiee_2022.dir/depend
 

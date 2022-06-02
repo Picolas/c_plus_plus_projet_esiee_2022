@@ -304,6 +304,33 @@ Class/Block/World/Mineraux.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\c_plus_plus_projet_esiee_2022.dir\build.make CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Block/World/Mineraux.cpp.s
 .PHONY : Class/Block/World/Mineraux.cpp.s
 
+Class/Events/Evenements.obj: Class/Events/Evenements.cpp.obj
+
+.PHONY : Class/Events/Evenements.obj
+
+# target to build an object file
+Class/Events/Evenements.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\c_plus_plus_projet_esiee_2022.dir\build.make CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.obj
+.PHONY : Class/Events/Evenements.cpp.obj
+
+Class/Events/Evenements.i: Class/Events/Evenements.cpp.i
+
+.PHONY : Class/Events/Evenements.i
+
+# target to preprocess a source file
+Class/Events/Evenements.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\c_plus_plus_projet_esiee_2022.dir\build.make CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.i
+.PHONY : Class/Events/Evenements.cpp.i
+
+Class/Events/Evenements.s: Class/Events/Evenements.cpp.s
+
+.PHONY : Class/Events/Evenements.s
+
+# target to generate assembly for a file
+Class/Events/Evenements.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\c_plus_plus_projet_esiee_2022.dir\build.make CMakeFiles/c_plus_plus_projet_esiee_2022.dir/Class/Events/Evenements.cpp.s
+.PHONY : Class/Events/Evenements.cpp.s
+
 Class/Game/Game.obj: Class/Game/Game.cpp.obj
 
 .PHONY : Class/Game/Game.obj
@@ -412,6 +439,9 @@ help:
 	@echo ... Class/Block/World/Mineraux.obj
 	@echo ... Class/Block/World/Mineraux.i
 	@echo ... Class/Block/World/Mineraux.s
+	@echo ... Class/Events/Evenements.obj
+	@echo ... Class/Events/Evenements.i
+	@echo ... Class/Events/Evenements.s
 	@echo ... Class/Game/Game.obj
 	@echo ... Class/Game/Game.i
 	@echo ... Class/Game/Game.s
