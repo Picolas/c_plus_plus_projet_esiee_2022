@@ -20,7 +20,7 @@ Game::Game(int x, int y) {
     this->addHerbe(number_herbe);
     this->addMineraux(number_mineraux);
     this->setShowGameDimansions();
-    //this->startGame();
+    this->startGame();
 }
 
 Game::Game(int numberLoup, int numberMouton, int numberMineraux, int numberHerbe, int x, int y) : number_loup(numberLoup),
@@ -40,6 +40,9 @@ void Game::setSize(int x, int y) {
 }
 
 void Game::startGame() {
+    // ON affiche le jeu initial :
+    this->showGame();
+
     this->state = "started";
     this->gameLoop();
 }
@@ -58,9 +61,17 @@ void Game::gameLoop() {
         this->checkDieLoup();
 
         //Bouger mouton
-        //this->bestMoveMouton();
+        this->bestMoveMouton();
+        //this->randomMoveMouton();
 
+        //On affiche le jeu
+        this->showGame();
 
+        // On affiche les Evenements
+        this->showEvents();
+
+        cout << "Appuyez sur entrer pour continuer" << endl;
+        cin.ignore();
     }
 }
 
@@ -217,6 +228,8 @@ void Game::moutonMangeHerbe(Herbe& herbe, Mouton &mouton) {
             indexHerbe++;
         }
 
+        //this->
+
         this->listeHerbe.erase( this->listeHerbe.begin() + indexHerbe);
     }
 }
@@ -268,8 +281,10 @@ void Game::changerMinerauxEnHerbe(Mineraux &mineraux) {
 }
 
 void Game::killMouton(Mouton &mouton, string type) {
-    Evenements event(type, mouton.coordonates[0], mouton.coordonates[1]);
-    this->listeEvenements.push_back(event);
+    if (type != "") {
+        Evenements event(type, mouton.coordonates[0], mouton.coordonates[1]);
+        this->listeEvenements.push_back(event);
+    }
 
     //find mouton;
     int indexMouton = 0;
@@ -485,9 +500,66 @@ void Game::removeFaim() {
 void Game::bestMoveMouton() {
     for(Mouton mouton : this->listeMouton) {
         bool findHerbe = false;
+        bool moved = false;
+        for (int i = -2; i <= 2; ++i) {
+            for (int j = -2; j <= 2; ++j) {
+
+                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + j, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + i, this->size[1])) == HERBE) {
+                    findHerbe = true;
+                    if (findHerbe) {
+                        if (getBlockType(numberNotSupOrMinOne(mouton.coordonates[0] + j), numberNotSupOrMinOne(mouton.coordonates[1] + i)) == HERBE) {
+                            //Manger herbe
+                            Herbe herbe = getHerbe(mouton.coordonates[0] + j, mouton.coordonates[1] + i);
+                            this->moutonMangeHerbe(herbe, mouton);
+                        } else if (getBlockType(numberNotSupOrMinOne(mouton.coordonates[0] + j), numberNotSupOrMinOne(mouton.coordonates[1] + i)) == CASE_VIDE) {
+                            // on déplace le mouton
+                            int oldX = mouton.coordonates[0];
+                            int oldY = mouton.coordonates[1];
+                            this->listeMouton[getIndexMouton(mouton)].coordonates[0] = numberNotSupOrMinOne(mouton.coordonates[0] + j);
+                            this->listeMouton[getIndexMouton(mouton)].coordonates[1] = numberNotSupOrMinOne(mouton.coordonates[1] + i);
+                            cout << "Le mouton s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
+                            cout << "[" + to_string(this->listeMouton[getIndexMouton(mouton)].coordonates[0] + 1) + intToLetter(this->listeMouton[getIndexMouton(mouton)].coordonates[1]) + "] " << endl;
+                            moved = true;
+                        } else {
+                            for (int y = -1; y <= 1; ++y) {
+                                for (int x = -1; x <= 1; ++x) {
+                                    if (getBlockType(numberNotSupOrMinOne(mouton.coordonates[0] + x), numberNotSupOrMinOne(mouton.coordonates[1] + y)) == CASE_VIDE) {
+                                        int oldX = mouton.coordonates[0];
+                                        int oldY = mouton.coordonates[1];
+                                        this->listeMouton[getIndexMouton(mouton)].coordonates[0] = numberNotSupOrMinOne(mouton.coordonates[0] + x);
+                                        this->listeMouton[getIndexMouton(mouton)].coordonates[1] = numberNotSupOrMinOne(mouton.coordonates[1] + y);
+                                        cout << "Le mouton s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
+                                        cout << "[" + to_string(this->listeMouton[getIndexMouton(mouton)].coordonates[0] + 1) + intToLetter(this->listeMouton[getIndexMouton(mouton)].coordonates[1]) + "] " << endl;
+                                        moved = true;
+                                        break;
+                                    }
+                                }
+                                if (moved) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    cout << "[" + to_string(numberNotOutOfBound(mouton.coordonates[0] + j, this->size[0]) + 1) + intToLetter(numberNotOutOfBound(mouton.coordonates[1] + i, this->size[1])) + "] Herbe trouvé" << endl;
+                }
+                if (moved) {
+                    break;
+                }
+            }
+            if (moved) {
+                break;
+            }
+        }
+
+    }
+
+    /*
+    for(Mouton mouton : this->listeMouton) {
+        bool findHerbe = false;
         for (int i = -2; i < 2; ++i) {
             for (int j = -2; j < 2; ++j) {
-                if (getBlockType(mouton.coordonates[0] + i, mouton.coordonates[1] + i) == HERBE) {
+                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + i, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + i, this->size[1])) == HERBE) {
                     findHerbe = true;
                     if (getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == CASE_VIDE || getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == HERBE || getBlockType(numberNotSupOrMinOne(i), numberNotSupOrMinOne(j)) == MINERAUX) {
                         mouton.coordonates[0] = numberNotSupOrMinOne(i);
@@ -508,8 +580,11 @@ void Game::bestMoveMouton() {
                 }
             }
         }
-        cout << "le mouton a bougé";
+        if (findHerbe) {
+            cout << "[" + to_string(mouton.coordonates[0] + 1) + intToLetter(mouton.coordonates[1]) + "] Le mouton à bougé" << endl;
+        }
     }
+    */
 }
 
 int Game::numberNotSupOrMinOne(int number) {
@@ -520,43 +595,66 @@ int Game::numberNotSupOrMinOne(int number) {
     return 0;
 }
 
-
-/*
-void Game::initMap() {
-    for (Mineraux &mineraux : this->listeMineraux) {
-        this->listeBlock[mineraux.coordonates[0]][mineraux.coordonates[1]] = mineraux;
+int Game::numberNotOutOfBound(int number, int size) {
+    if (number > size) {
+        return size;
     }
-
-    for (Loup &loup : this->listeLoup) {
-        this->listeBlock[loup.coordonates[0]][loup.coordonates[1]] = loup;
-    }
-
-    for (Herbe &herbe : this->listeHerbe) {
-        this->listeBlock[herbe.coordonates[0]][herbe.coordonates[1]] = herbe;
-    }
-
-    for (Mouton &mouton : this->listeMouton) {
-        this->listeBlock[mouton.coordonates[0]][mouton.coordonates[1]] = mouton;
-    }
+    return number;
 }
-*/
 
-/*
-void Game::fillMapBlock() {
-    this->rezizeListBlock();
-    for (int i = 0; i < this->size[0]; ++i) {
-        for (int j = 0; j < this->size[1]; ++j) {
-            this->listeBlock[i][j] = block;
+Herbe Game::getHerbe(int x, int y) {
+    //find herbe;
+    int indexHerbe = 0;
+    for(Herbe herbe: this->listeHerbe) {
+        if (herbe.coordonates[0] == x && herbe.coordonates[1] == y) {
+            break;
         }
+        indexHerbe++;
     }
+
+    return listeHerbe[indexHerbe];
 }
- */
+
+int Game::getIndexMouton(Mouton& mouton) {
+    //find mouton;
+    int indexMouton = 0;
+    for(Mouton _mouton: this->listeMouton) {
+        if (_mouton.coordonates[0] == mouton.coordonates[0] && _mouton.coordonates[1] == mouton.coordonates[1]) {
+            break;
+        }
+        indexMouton++;
+    }
+
+    return indexMouton;
+}
 
 /*
-void Game::rezizeListBlock() {
-    this->listeBlock.resize(this->size[0], vector<Block*>(this->size[0]));
+void Game::randomMoveMouton() {
+    bool moved;
+    for(Mouton mouton : this->listeMouton) {
+        srand (time(NULL));
+
+        int choosedMove = (rand() % 8) + 1;
+
+        if (mouton.coordonates[1] == this->size[1]) {
+            switch(choosedMove) {
+                case 1:
+                    if (getBlockType(mouton.coordonates[0] - 1, mouton.coordonates[1] - 1) == CASE_VIDE) {
+
+                    }
+                case 2:
+                    if (getBlockType(mouton.coordonates[0] - 1, mouton.coordonates[1] - 1) == CASE_VIDE) {
+
+                    }
+
+                default:
+            }
+
+        }
+
+
+    }
 }
 */
-
 
 

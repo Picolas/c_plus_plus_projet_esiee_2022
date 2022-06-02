@@ -4,13 +4,20 @@
 int main() {
 
 
-    Game game(17, 12);
+    Game game(12, 12);
+    /*
+        game.showGame();
 
+        cout << game.listeLoup[3].coordonates[0] << ",";
+        cout << game.listeLoup[3].coordonates[1] << endl;
+    game.listeLoup[3].coordonates[0] = 10;
+    game.listeLoup[3].coordonates[1] = 10;
+    cout << game.listeLoup[3].coordonates[0] << ",";
+    cout << game.listeLoup[3].coordonates[1] << endl;
 
-    for (Mouton mouton : game.listeMouton) {
-        cout << "[" << to_string(mouton.coordonates[0] + 1) << game.intToLetter(mouton.coordonates[1]) << "]" << endl;
-    }
-
+    game.showGame();
+     */
+    /*
     game.showEvents();
 
     game.showGame();
@@ -23,11 +30,8 @@ int main() {
 
     game.showGame();
 
-    for (Mouton mouton : game.listeMouton) {
-        cout << "[" << to_string(mouton.coordonates[0] + 1) << game.intToLetter(mouton.coordonates[1]) << "]" << endl;
-    }
-
 
     game.showGame();
+     */
     return 0;
 }

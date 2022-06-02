@@ -15,6 +15,7 @@
 #include <ctime>
 #include <vector>
 #include <iostream>
+#include "../Library/termcolor.hpp"
 
 using namespace std;
 #define C_PLUS_PLUS_PROJET_ESIEE_2022_GAME_H
@@ -101,7 +102,17 @@ public:
 
     int numberNotSupOrMinOne(int number);
 
+    int numberNotOutOfBound(int number, int size);
+
     void setShowGameDimansions();
+
+    Herbe getHerbe(int x, int y);
+
+    void randomMoveMouton();
+
+    void randomMoveLoup();
+
+    int getIndexMouton(Mouton& mouton);
 };
 
 
