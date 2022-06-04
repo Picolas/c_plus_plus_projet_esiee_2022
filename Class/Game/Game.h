@@ -124,6 +124,20 @@ public:
     void checkEndGame();
 
     void reproductionMouton();
+
+    bool canReproductedMouton(Mouton firstMouton, Mouton secondMouton);
+
+    bool canReproductedLoup(Loup firstLoup, Loup secondLoup);
+
+    Mouton getMouton(int x, int y);
+
+    Loup getLoup(int x, int y);
+
+    void endReproductionMouton();
+
+    void endReproductionLoup();
+
+    void reproductionLoup();
 };
 
 

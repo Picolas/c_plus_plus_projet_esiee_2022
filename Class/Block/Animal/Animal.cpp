@@ -7,4 +7,16 @@
 Animal::Animal(int x, int y) : Block(x, y) {
 }
 
+void Animal::setRandomSexe() {
+    srand (time(NULL));
+
+    int random = rand() % 1;
+
+    if (random == 0) {
+        this->sexe = MASCULIN;
+    } else {
+        this->sexe = FEMININ;
+    }
+}
+
 Animal::Animal() = default;

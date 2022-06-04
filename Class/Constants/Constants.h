@@ -14,6 +14,8 @@ const string HERBE = "Herbe";
 const string MINERAUX = "Mineraux";
 const string CASE_VIDE = "Case Vide";
 const string ANIMAL = "Animal";
+const string MASCULIN;
+const string FEMININ;
 
 // Evenements
 const string LOUP_MEURT_FAIM = "Un loup meurt de faim.";

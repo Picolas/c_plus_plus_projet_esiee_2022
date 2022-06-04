@@ -67,6 +67,14 @@ void Game::gameLoop() {
         //this->bestMoveMouton();
         this->randomMoveMouton();
 
+        // On check les reproductions
+        this->endReproductionMouton();
+        this->reproductionMouton();
+
+        // On check les reproductions
+        this->endReproductionLoup();
+        this->reproductionLoup();
+
         // On affiche le nombre d'element en jeu
         this->showNumberLife();
 
@@ -90,6 +98,7 @@ void Game::addLoup(int nombre) {
         resultCoordonate = generateCoordonate();
 
         Loup loup(resultCoordonate[0], resultCoordonate[1]);
+        loup.setRandomSexe();
         this->listeLoup.push_back(loup);
     }
 }
@@ -100,6 +109,7 @@ void Game::addMouton(int nombre) {
         resultCoordonate = generateCoordonate();
 
         Mouton mouton(resultCoordonate[0], resultCoordonate[1]);
+        mouton.setRandomSexe();
         this->listeMouton.push_back(mouton);
     }
 }
@@ -560,7 +570,7 @@ Herbe Game::getHerbe(int x, int y) {
         indexHerbe++;
     }
 
-    return listeHerbe[indexHerbe];
+    return this->listeHerbe[indexHerbe];
 }
 
 int Game::getIndexMouton(Mouton& mouton) {
@@ -717,7 +727,7 @@ int Game::getIndexHerbe(Herbe &herbe) {
 }
 
 void Game::checkEndGame() {
-    if (this->listeMouton.size() <= 0 && this->listeLoup.size() <= 0 && this->listeMineraux.size() <= 0) {
+    if (this->listeMouton.empty() && this->listeLoup.empty() && this->listeMineraux.empty()) {
         this->state = "finished";
     }
 }
@@ -730,43 +740,143 @@ void Game::reproductionMouton() {
 
             for (int x = -1; x < 1; ++x) {
 
-                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == MOUTON)
+                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == MOUTON) {
 
-            }
+                    Mouton firstMouton = this->listeMouton[getIndexMouton(mouton)];
+                    Mouton reproductedMouton = getMouton(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]),
+                                                         numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1]));
+                    Mouton secondMouton = this->listeMouton[getIndexMouton(reproductedMouton)];
 
-        }
+                    // On verifie si il y a un male et une femelle:
+                    if (canReproductedMouton(firstMouton, secondMouton)) {
 
-    }
-
-}
-
-/*
-void Game::randomMoveMouton() {
-    bool moved;
-    for(Mouton mouton : this->listeMouton) {
-        srand (time(NULL));
-
-        int choosedMove = (rand() % 8) + 1;
-
-        if (mouton.coordonates[1] == this->size[1]) {
-            switch(choosedMove) {
-                case 1:
-                    if (getBlockType(mouton.coordonates[0] - 1, mouton.coordonates[1] - 1) == CASE_VIDE) {
-
+                        if (this->listeMouton[getIndexMouton(mouton)].canReproducted &&
+                            this->listeMouton[getIndexMouton(reproductedMouton)].canReproducted) {
+                            // on bloque les moutons pour 1 tour
+                            this->listeMouton[getIndexMouton(mouton)].canReproducted = false;
+                            this->listeMouton[getIndexMouton(reproductedMouton)].canReproducted = false;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
                     }
-                case 2:
-                    if (getBlockType(mouton.coordonates[0] - 1, mouton.coordonates[1] - 1) == CASE_VIDE) {
-
-                    }
-
-                default:
+                }
             }
-
         }
-
-
     }
 }
-*/
+
+Mouton Game::getMouton(int x, int y) {
+    //find mouton;
+    int indexMouton = 0;
+    for(Mouton mouton: this->listeMouton) {
+        if (mouton.coordonates[0] == x && mouton.coordonates[1] == y) {
+            break;
+        }
+        indexMouton++;
+    }
+
+    return this->listeMouton[indexMouton];
+}
+
+Loup Game::getLoup(int x, int y) {
+    //find loup;
+    int indexLoup = 0;
+    for(Loup loup: this->listeLoup) {
+        if (loup.coordonates[0] == x && loup.coordonates[1] == y) {
+            break;
+        }
+        indexLoup++;
+    }
+
+    return this->listeLoup[indexLoup];
+}
+
+bool Game::canReproductedMouton(Mouton firstMouton, Mouton secondMouton) {
+    if (firstMouton.sexe != secondMouton.sexe)
+        return true;
+    return false;
+}
+
+bool Game::canReproductedLoup(Loup firstLoup, Loup secondLoup) {
+    if (firstLoup.sexe != secondLoup.sexe)
+        return true;
+    return false;
+}
+
+void Game::endReproductionMouton() {
+    for (Mouton mouton : this->listeMouton) {
+        if (!mouton.canReproducted) {
+            if (mouton.sexe == FEMININ) {
+                for (int y = -1; y < 1; ++y) {
+                    for (int x = -1; x < 1; ++x) {
+                        if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == CASE_VIDE) {
+                            //On pose un nouveau bébé mouton
+                            Mouton babyMouton(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1]));
+                            babyMouton.setRandomSexe();
+                            this->listeMouton.push_back(babyMouton);
+                        }
+                    }
+                }
+            }
+            this->listeMouton[getIndexMouton(mouton)].canReproducted = true;
+        }
+    }
+}
+
+void Game::reproductionLoup() {
+    for (Loup loup: this->listeLoup) {
+
+        for (int y = -1; y < 1; ++y) {
+
+            for (int x = -1; x < 1; ++x) {
+
+                if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == LOUP) {
+
+                    Loup firstLoup = this->listeLoup[getIndexLoup(loup)];
+                    Loup reproductedLoup = getLoup(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]),
+                                                   numberNotOutOfBound(loup.coordonates[1] + y, this->size[1]));
+                    Loup secondLoup = this->listeLoup[getIndexLoup(reproductedLoup)];
+
+                    // On verifie si il y a un male et une femelle:
+                    if (canReproductedLoup(firstLoup, secondLoup)) {
+
+                        if (this->listeLoup[getIndexLoup(loup)].canReproducted &&
+                            this->listeLoup[getIndexLoup(reproductedLoup)].canReproducted) {
+                            // on bloque les moutons pour 1 tour
+                            this->listeLoup[getIndexLoup(loup)].canReproducted = false;
+                            this->listeLoup[getIndexLoup(reproductedLoup)].canReproducted = false;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Game::endReproductionLoup() {
+    for (Loup loup : this->listeLoup) {
+        if (!loup.canReproducted) {
+            if (loup.sexe == FEMININ) {
+                for (int y = -1; y < 1; ++y) {
+                    for (int x = -1; x < 1; ++x) {
+                        if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == CASE_VIDE) {
+                            //On pose un nouveau bébé loup
+                            Loup babyLoup(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1]));
+                            babyLoup.setRandomSexe();
+                            this->listeLoup.push_back(babyLoup);
+                        }
+                    }
+                }
+            }
+            this->listeLoup[getIndexLoup(loup)].canReproducted = true;
+        }
+    }
+}
 
 

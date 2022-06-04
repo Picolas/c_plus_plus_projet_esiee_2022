@@ -10,14 +10,17 @@
 class Animal: public Block {
     int faim = 0;
     int vie = 0;
-    bool canReproducted = false;
 
 public:
     string type = ANIMAL;
+    string sexe;
+    bool canReproducted = true;
 
     Animal(int x, int y);
 
     Animal();
+
+    void setRandomSexe();
 };
 
 
