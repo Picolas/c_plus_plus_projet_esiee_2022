@@ -51,8 +51,11 @@ void Game::startGame() {
 void Game::gameLoop() {
     while(this->state == "started") {
 
+        // On fait pousser l'herbe en chaque début de tour
+        this->changerMinerauxEnHerbe();
+
         // On retire 1 de faim aux mouton et loup en début de tour
-        this->removeFaim();
+        this->removeFaimAndVie();
 
         //check si un mouton meurt de faim ou vieillesse
         this->checkDieMouton();
@@ -72,6 +75,9 @@ void Game::gameLoop() {
 
         // On affiche les Evenements
         this->showEvents();
+
+        // on verifie si c'est la fin du jeu
+        this->checkEndGame();
 
         cout << "Appuyez sur entrer pour continuer" << endl;
         cin.ignore();
@@ -220,7 +226,7 @@ void Game::moutonMangeHerbe(Herbe& herbe, Mouton &mouton) {
         Evenements event(MOUTON_MANGE_HERBE, herbe.coordonates[0], herbe.coordonates[1]);
         this->listeEvenements.push_back(event);
 
-        mouton.faim = 5;
+        this->listeMouton[getIndexMouton(mouton)].faim = 5;
 
         //find herbe;
         int indexHerbe = 0;
@@ -231,9 +237,7 @@ void Game::moutonMangeHerbe(Herbe& herbe, Mouton &mouton) {
             indexHerbe++;
         }
 
-        //this->
-
-        this->listeHerbe.erase( this->listeHerbe.begin() + indexHerbe);
+        this->listeHerbe.erase( this->listeHerbe.begin() + (indexHerbe - 1));
     }
 }
 
@@ -242,45 +246,26 @@ void Game::loupMangeMouton(Mouton& mouton, Loup &loup) {
         Evenements event(MOUTON_MEURT_LOUP, mouton.coordonates[0], mouton.coordonates[1]);
         this->listeEvenements.push_back(event);
 
-        loup.faim = 10;
+        this->listeLoup[getIndexLoup(loup)].faim = 10;
 
-        //find mouton;
-        int indexMouton = 0;
-        for(Mouton _mouton: this->listeMouton) {
-            if (_mouton.coordonates[0] == mouton.coordonates[0] && _mouton.coordonates[1] == mouton.coordonates[1]) {
-                break;
-            }
-            indexMouton++;
-        }
-
-        this->listeMouton.erase( this->listeMouton.begin() + indexMouton);
+        this->listeMouton.erase( this->listeMouton.begin() + (getIndexMouton(mouton) - 1));
 
         Mineraux mineraux(mouton.coordonates[0], mouton.coordonates[1]);
         this->listeMineraux.push_back(mineraux);
     }
 }
 
-void Game::changerMinerauxEnHerbe(Mineraux &mineraux) {
-    int x, y;
-    x = mineraux.coordonates[0];
-    y = mineraux.coordonates[1];
+void Game::changerMinerauxEnHerbe() {
+    for (Mineraux mineraux : this->listeMineraux) {
 
-    //find mineraux;
-    int indexMineraux = 0;
-    for(Mineraux mineraux: this->listeMineraux) {
-        if (mineraux.coordonates[0] == x && mineraux.coordonates[1] == y) {
-            break;
-        }
-        indexMineraux++;
+        this->listeMineraux.erase( this->listeMineraux.begin() + (getIndexMineraux(mineraux) - 1));
+
+        Herbe herbe(mineraux.coordonates[0], mineraux.coordonates[1]);
+        this->listeHerbe.push_back(herbe);
+
+        Evenements event(HERBE_POUSSE, herbe.coordonates[0], herbe.coordonates[1]);
+        this->listeEvenements.push_back(event);
     }
-
-    this->listeMineraux.erase( this->listeMineraux.begin() + indexMineraux);
-
-    Herbe herbe(x, y);
-    this->listeHerbe.push_back(herbe);
-
-    Evenements event(HERBE_POUSSE, herbe.coordonates[0], herbe.coordonates[1]);
-    this->listeEvenements.push_back(event);
 }
 
 void Game::killMouton(Mouton &mouton, string type) {
@@ -289,32 +274,20 @@ void Game::killMouton(Mouton &mouton, string type) {
         this->listeEvenements.push_back(event);
     }
 
-    //find mouton;
-    int indexMouton = 0;
-    for(Mouton _mouton: this->listeMouton) {
-        if (_mouton.coordonates[0] == mouton.coordonates[0] && _mouton.coordonates[1] == mouton.coordonates[1]) {
-            break;
-        }
-        indexMouton++;
-    }
+    Mineraux mineraux(mouton.coordonates[0], mouton.coordonates[1]);
+    this->listeMineraux.push_back(mineraux);
 
-    this->listeMouton.erase( this->listeMouton.begin() + indexMouton);
+    this->listeMouton.erase( this->listeMouton.begin() + (getIndexMouton(mouton) - 1));
 }
 
 void Game::killLoup(Loup &loup, string type) {
     Evenements event(type, loup.coordonates[0], loup.coordonates[1]);
     this->listeEvenements.push_back(event);
 
-    //find loup;
-    int indexLoup = 0;
-    for(Loup _loup: this->listeLoup) {
-        if (_loup.coordonates[0] == loup.coordonates[0] && _loup.coordonates[1] == loup.coordonates[1]) {
-            break;
-        }
-        indexLoup++;
-    }
+    Mineraux mineraux(loup.coordonates[0], loup.coordonates[1]);
+    this->listeMineraux.push_back(mineraux);
 
-    this->listeLoup.erase( this->listeLoup.begin() + indexLoup);
+    this->listeLoup.erase( this->listeLoup.begin() + (getIndexLoup(loup) - 1));
 }
 
 string Game::firstLine() {
@@ -470,11 +443,13 @@ void Game::showEvents() {
 
 void Game::checkDieMouton() {
     for (Mouton mouton : this->listeMouton) {
-        if (mouton.faim == 0) {
+        if (mouton.faim <= 0) {
             this->killMouton(mouton, MOUTON_MEURT_FAIM);
+            continue;
         }
-        if (mouton.vie == 0) {
+        if (mouton.vie <= 0) {
             this->killMouton(mouton, MOUTON_MEURT_VIELLESSE);
+            continue;
         }
     }
 }
@@ -490,13 +465,15 @@ void Game::checkDieLoup() {
     }
 }
 
-void Game::removeFaim() {
+void Game::removeFaimAndVie() {
     for (Mouton mouton : this->listeMouton) {
-        mouton.faim -= 1;
+        this->listeMouton[getIndexMouton(mouton)].faim -= 1;
+        this->listeMouton[getIndexMouton(mouton)].vie -= 1;
     }
 
     for (Loup loup : this->listeLoup) {
-        loup.faim -= 1;
+        this->listeLoup[getIndexLoup(loup)].faim -= 1;
+        this->listeLoup[getIndexLoup(loup)].vie -= 1;
     }
 }
 
@@ -599,6 +576,19 @@ int Game::getIndexMouton(Mouton& mouton) {
     return indexMouton;
 }
 
+int Game::getIndexLoup(Loup& loup) {
+    //find loup;
+    int indexLoup = 0;
+    for(Loup _loup: this->listeLoup) {
+        if (_loup.coordonates[0] == loup.coordonates[0] && _loup.coordonates[1] == loup.coordonates[1]) {
+            break;
+        }
+        indexLoup++;
+    }
+
+    return indexLoup;
+}
+
 void Game::randomMoveMouton() {
 
     bool moutonMoved = false;
@@ -698,6 +688,56 @@ void Game::showNumberLife() {
     cout << "[INFO] Il y a " << numberMouton << " moutons" << endl;
     cout << "[INFO] Il y a " << numberHerbe << " herbes" << endl;
     cout << "[INFO] Il y a " << numberMineraux << " mineraux" << endl;
+}
+
+int Game::getIndexMineraux(Mineraux &mineraux) {
+    //find mineraux;
+    int indexMineraux = 0;
+    for(Mineraux _mineraux: this->listeMineraux) {
+        if (_mineraux.coordonates[0] == mineraux.coordonates[0] && _mineraux.coordonates[1] == mineraux.coordonates[1]) {
+            break;
+        }
+        indexMineraux++;
+    }
+
+    return indexMineraux;
+}
+
+int Game::getIndexHerbe(Herbe &herbe) {
+    //find herbe;
+    int indexHerbe = 0;
+    for(Herbe _herbe: this->listeHerbe) {
+        if (_herbe.coordonates[0] == herbe.coordonates[0] && _herbe.coordonates[1] == herbe.coordonates[1]) {
+            break;
+        }
+        indexHerbe++;
+    }
+
+    return indexHerbe;
+}
+
+void Game::checkEndGame() {
+    if (this->listeMouton.size() <= 0 && this->listeLoup.size() <= 0 && this->listeMineraux.size() <= 0) {
+        this->state = "finished";
+    }
+}
+
+void Game::reproductionMouton() {
+
+    for (Mouton mouton: this->listeMouton) {
+
+        for (int y = -1; y < 1; ++y) {
+
+            for (int x = -1; x < 1; ++x) {
+
+                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == MOUTON)
+
+            }
+
+        }
+
+    }
+
 }
 
 /*

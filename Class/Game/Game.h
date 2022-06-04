@@ -69,7 +69,7 @@ public:
 
     void loupMangeMouton(Mouton& mouton, Loup& loup);
 
-    void changerMinerauxEnHerbe(Mineraux& mineraux);
+    void changerMinerauxEnHerbe();
 
     void killMouton(Mouton& mouton, string type);
 
@@ -93,7 +93,7 @@ public:
 
     void checkDieLoup();
 
-    void removeFaim();
+    void removeFaimAndVie();
 
     void bestMoveMouton();
 
@@ -113,7 +113,17 @@ public:
 
     int getIndexMouton(Mouton& mouton);
 
+    int getIndexLoup(Loup& loup);
+
     void showNumberLife();
+
+    int getIndexMineraux(Mineraux& mineraux);
+
+    int getIndexHerbe(Herbe& herbe);
+
+    void checkEndGame();
+
+    void reproductionMouton();
 };
 
 

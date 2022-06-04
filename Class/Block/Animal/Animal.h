@@ -10,6 +10,7 @@
 class Animal: public Block {
     int faim = 0;
     int vie = 0;
+    bool canReproducted = false;
 
 public:
     string type = ANIMAL;
