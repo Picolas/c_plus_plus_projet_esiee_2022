@@ -18,15 +18,6 @@ Game::Game(int x, int y) {
     this->addLoup(number_loup);
     this->addMouton(number_mouton);
     this->addHerbe(number_herbe);
-    // test TODO
-    Loup loup(10, 10);
-    loup.sexe = FEMININ;
-    this->listeLoup.push_back(loup);
-
-    Loup loupe(11, 10);
-    loupe.sexe = MASCULIN;
-    this->listeLoup.push_back(loupe);
-
     this->addMineraux(number_mineraux);
     this->setShowGameDimansions();
     this->startGame();
@@ -96,8 +87,10 @@ void Game::gameLoop() {
         // on verifie si c'est la fin du jeu
         this->checkEndGame();
 
+        /*
         cout << "Appuyez sur entrer pour continuer" << endl;
         cin.ignore();
+         */
     }
 }
 
@@ -502,12 +495,14 @@ void Game::bestMoveMouton() {
     bool moutonMoved = false;
     for (Mouton mouton : this->listeMouton) {
 
-        // Boucle herbe
-        for (int y = -1; y < 1; ++y) {
-            for (int x = -1; x <= 1; ++x) {
-                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == HERBE) {
-                    Herbe herbe = getHerbe(mouton.coordonates[0] + x, mouton.coordonates[1] + y);
-                    this->moutonMangeHerbe(herbe, mouton);
+        // Boucle herbe (< 5 pour éviter de gaspiller de l'herbe
+        if (mouton.faim < 5) {
+            for (int y = -1; y < 1; ++y) {
+                for (int x = -1; x <= 1; ++x) {
+                    if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == HERBE) {
+                        Herbe herbe = getHerbe(mouton.coordonates[0] + x, mouton.coordonates[1] + y);
+                        this->moutonMangeHerbe(herbe, mouton);
+                    }
                 }
             }
         }
@@ -544,12 +539,15 @@ void Game::bestMoveLoup() {
     bool loupMoved = false;
     for (Loup loup : this->listeLoup) {
 
-        // Boucle herbe
-        for (int y = -1; y < 1; ++y) {
-            for (int x = -1; x <= 1; ++x) {
-                if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == MOUTON) {
-                    Mouton mouton = getMouton(loup.coordonates[0] + x, loup.coordonates[1] + y);
-                    this->loupMangeMouton(mouton, loup);
+        // Boucle mouton < 10 pour éviter de tuer des moutons pour rien
+        if (loup.faim < 10) {
+            for (int y = -1; y < 1; ++y) {
+                for (int x = -1; x <= 1; ++x) {
+                    if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]),
+                                     numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == MOUTON) {
+                        Mouton mouton = getMouton(loup.coordonates[0] + x, loup.coordonates[1] + y);
+                        this->loupMangeMouton(mouton, loup);
+                    }
                 }
             }
         }
@@ -599,6 +597,9 @@ int Game::numberNotSupOrMinOne(int number) {
 int Game::numberNotOutOfBound(int number, int size) {
     if (number > size) {
         return size;
+    }
+    if (number < 0) {
+        return 0;
     }
     return number;
 }
