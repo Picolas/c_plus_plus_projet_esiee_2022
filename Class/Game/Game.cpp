@@ -18,6 +18,15 @@ Game::Game(int x, int y) {
     this->addLoup(number_loup);
     this->addMouton(number_mouton);
     this->addHerbe(number_herbe);
+    // test TODO
+    Loup loup(10, 10);
+    loup.sexe = FEMININ;
+    this->listeLoup.push_back(loup);
+
+    Loup loupe(11, 10);
+    loupe.sexe = MASCULIN;
+    this->listeLoup.push_back(loupe);
+
     this->addMineraux(number_mineraux);
     this->setShowGameDimansions();
     this->startGame();
@@ -63,9 +72,9 @@ void Game::gameLoop() {
         //check si un loup meurt de faim ou vieillesse
         this->checkDieLoup();
 
-        //Bouger mouton
-        //this->bestMoveMouton();
-        this->randomMoveMouton();
+        //Bouger mouton et loup
+        this->bestMoveMouton();
+        this->bestMoveLoup();
 
         // On check les reproductions
         this->endReproductionMouton();
@@ -430,6 +439,8 @@ void Game::showEvents() {
         string result = "[" + to_string(event.coordonates[0] + 1) + intToLetter(event.coordonates[1]) + "] " + event.type;
         cout << result << endl;
     }
+    // On clear les events
+    listeEvenements.clear();
     /*
      * BUG EN ATTENTE POUR STACKER
     int indexCurrentEvent = 0;
@@ -488,57 +499,89 @@ void Game::removeFaimAndVie() {
 }
 
 void Game::bestMoveMouton() {
-    for(Mouton mouton : this->listeMouton) {
-        bool findHerbe = false;
-        bool moved = false;
-        for (int i = -2; i <= 2; ++i) {
-            for (int j = -2; j <= 2; ++j) {
+    bool moutonMoved = false;
+    for (Mouton mouton : this->listeMouton) {
 
-                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + j, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + i, this->size[1])) == HERBE) {
-                    findHerbe = true;
-                    if (findHerbe) {
-                        if (getBlockType(numberNotSupOrMinOne(mouton.coordonates[0] + j), numberNotSupOrMinOne(mouton.coordonates[1] + i)) == HERBE) {
-                            //Manger herbe
-                            Herbe herbe = getHerbe(mouton.coordonates[0] + j, mouton.coordonates[1] + i);
-                            this->moutonMangeHerbe(herbe, mouton);
-                        } else if (getBlockType(numberNotSupOrMinOne(mouton.coordonates[0] + j), numberNotSupOrMinOne(mouton.coordonates[1] + i)) == CASE_VIDE) {
-                            // on déplace le mouton
-                            int oldX = mouton.coordonates[0];
-                            int oldY = mouton.coordonates[1];
-                            this->listeMouton[getIndexMouton(mouton)].coordonates[0] = numberNotSupOrMinOne(mouton.coordonates[0] + j);
-                            this->listeMouton[getIndexMouton(mouton)].coordonates[1] = numberNotSupOrMinOne(mouton.coordonates[1] + i);
-                            cout << "Le mouton s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
-                            cout << "[" + to_string(this->listeMouton[getIndexMouton(mouton)].coordonates[0] + 1) + intToLetter(this->listeMouton[getIndexMouton(mouton)].coordonates[1]) + "] " << endl;
-                            moved = true;
-                        } else {
-                            for (int y = -1; y <= 1; ++y) {
-                                for (int x = -1; x <= 1; ++x) {
-                                    if (getBlockType(numberNotSupOrMinOne(mouton.coordonates[0] + x), numberNotSupOrMinOne(mouton.coordonates[1] + y)) == CASE_VIDE) {
-                                        int oldX = mouton.coordonates[0];
-                                        int oldY = mouton.coordonates[1];
-                                        this->listeMouton[getIndexMouton(mouton)].coordonates[0] = numberNotSupOrMinOne(mouton.coordonates[0] + x);
-                                        this->listeMouton[getIndexMouton(mouton)].coordonates[1] = numberNotSupOrMinOne(mouton.coordonates[1] + y);
-                                        cout << "Le mouton s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
-                                        cout << "[" + to_string(this->listeMouton[getIndexMouton(mouton)].coordonates[0] + 1) + intToLetter(this->listeMouton[getIndexMouton(mouton)].coordonates[1]) + "] " << endl;
-                                        moved = true;
-                                        break;
-                                    }
-                                }
-                                if (moved) {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    cout << "[" + to_string(numberNotOutOfBound(mouton.coordonates[0] + j, this->size[0]) + 1) + intToLetter(numberNotOutOfBound(mouton.coordonates[1] + i, this->size[1])) + "] Herbe trouvé" << endl;
-                }
-                if (moved) {
-                    break;
+        // Boucle herbe
+        for (int y = -1; y < 1; ++y) {
+            for (int x = -1; x <= 1; ++x) {
+                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == HERBE) {
+                    Herbe herbe = getHerbe(mouton.coordonates[0] + x, mouton.coordonates[1] + y);
+                    this->moutonMangeHerbe(herbe, mouton);
                 }
             }
-            if (moved) {
+        }
+
+        moutonMoved = false;
+        // On bouge
+        for (int y = -1; y < 1; ++y) {
+            if (moutonMoved)
                 break;
+            for (int x = -1; x <= 1; ++x) {
+                if (moutonMoved)
+                    break;
+
+                if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == CASE_VIDE) {
+                    int oldX = mouton.coordonates[0];
+                    int oldY = mouton.coordonates[1];
+
+                    // On change ses coordonnées :
+                    this->listeMouton[getIndexMouton(mouton)].coordonates[0] = numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]);
+                    this->listeMouton[getIndexMouton(mouton)].coordonates[1] = numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1]);
+                    moutonMoved = true;
+
+                    // On affiche un message
+                    cout << "Le mouton s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
+                    cout << "[" + to_string(this->listeMouton[getIndexMouton(mouton)].coordonates[0] + 1) + intToLetter(this->listeMouton[getIndexMouton(mouton)].coordonates[1]) + "] " << endl;
+                }
+            }
+        }
+
+    }
+}
+
+void Game::bestMoveLoup() {
+    bool loupMoved = false;
+    for (Loup loup : this->listeLoup) {
+
+        // Boucle herbe
+        for (int y = -1; y < 1; ++y) {
+            for (int x = -1; x <= 1; ++x) {
+                if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == MOUTON) {
+                    Mouton mouton = getMouton(loup.coordonates[0] + x, loup.coordonates[1] + y);
+                    this->loupMangeMouton(mouton, loup);
+                }
+            }
+        }
+
+        loupMoved = false;
+        // On bouge
+        for (int y = -1; y < 1; ++y) {
+            if (loupMoved)
+                break;
+            for (int x = -1; x <= 1; ++x) {
+                if (loupMoved)
+                    break;
+
+                if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == CASE_VIDE) {
+                    int oldX = loup.coordonates[0];
+                    int oldY = loup.coordonates[1];
+
+                    /*
+                    cout << "loup x = coordonates : " << loup.coordonates[0] + x << endl;
+                    cout << "not ou bound : " << numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]) << endl;
+                    cout << "test x strong : " << this->listeLoup[getIndexLoup(loup)].coordonates[0] << endl;
+                    cout << "test x not strng : " << this->listeLoup[getIndexLoup(loup)].coordonates[0] + 1 << endl;
+                     */
+                    // On change ses coordonnées :
+                    this->listeLoup[getIndexLoup(loup)].coordonates[0] = numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]);
+                    this->listeLoup[getIndexLoup(loup)].coordonates[1] = numberNotOutOfBound(loup.coordonates[1] + y, this->size[1]);
+                    loupMoved = true;
+
+                    // On affiche un message
+                    cout << "Le loup s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
+                    cout << "[" + to_string(this->listeLoup[getIndexLoup(loup)].coordonates[0]) + intToLetter(this->listeLoup[getIndexLoup(loup)].coordonates[1]) + "] " << endl;
+                }
             }
         }
 
@@ -736,9 +779,9 @@ void Game::reproductionMouton() {
 
     for (Mouton mouton: this->listeMouton) {
 
-        for (int y = -1; y < 1; ++y) {
+        for (int y = -1; y <= 1; ++y) {
 
-            for (int x = -1; x < 1; ++x) {
+            for (int x = -1; x <= 1; ++x) {
 
                 if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == MOUTON) {
 
@@ -755,6 +798,8 @@ void Game::reproductionMouton() {
                             // on bloque les moutons pour 1 tour
                             this->listeMouton[getIndexMouton(mouton)].canReproducted = false;
                             this->listeMouton[getIndexMouton(reproductedMouton)].canReproducted = false;
+
+                            cout << "Des moutons se reproduisent" << endl;
                         } else {
                             break;
                         }
@@ -806,16 +851,40 @@ bool Game::canReproductedLoup(Loup firstLoup, Loup secondLoup) {
 }
 
 void Game::endReproductionMouton() {
+    bool reproducted = false;
     for (Mouton mouton : this->listeMouton) {
+        reproducted = false;
+        if (reproducted)
+            break;
         if (!mouton.canReproducted) {
+            if (reproducted)
+                break;
             if (mouton.sexe == FEMININ) {
-                for (int y = -1; y < 1; ++y) {
-                    for (int x = -1; x < 1; ++x) {
+                if (reproducted)
+                    break;
+                for (int y = -1; y <= 1; ++y) {
+                    if (reproducted)
+                        break;
+                    for (int x = -1; x <= 1; ++x) {
+                        if (reproducted)
+                            break;
+                        if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == MOUTON) {
+                            Mouton mouton_reproducted = getMouton(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1]));
+                            if (!this->listeMouton[getIndexMouton(mouton_reproducted)].canReproducted) {
+                                this->listeMouton[getIndexMouton(mouton_reproducted)].canReproducted = true;
+                            }
+                        }
+
                         if (getBlockType(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1])) == CASE_VIDE) {
-                            //On pose un nouveau bébé mouton
+
+                            //On pose un nouveau bébé loup
                             Mouton babyMouton(numberNotOutOfBound(mouton.coordonates[0] + x, this->size[0]), numberNotOutOfBound(mouton.coordonates[1] + y, this->size[1]));
                             babyMouton.setRandomSexe();
                             this->listeMouton.push_back(babyMouton);
+
+                            Evenements event(MOUTON_NAIT, babyMouton.coordonates[0], babyMouton.coordonates[1]);
+                            this->listeEvenements.push_back(event);
+                            reproducted = true;
                         }
                     }
                 }
@@ -828,9 +897,9 @@ void Game::endReproductionMouton() {
 void Game::reproductionLoup() {
     for (Loup loup: this->listeLoup) {
 
-        for (int y = -1; y < 1; ++y) {
+        for (int y = -1; y <= 1; ++y) {
 
-            for (int x = -1; x < 1; ++x) {
+            for (int x = -1; x <= 1; ++x) {
 
                 if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == LOUP) {
 
@@ -847,6 +916,8 @@ void Game::reproductionLoup() {
                             // on bloque les moutons pour 1 tour
                             this->listeLoup[getIndexLoup(loup)].canReproducted = false;
                             this->listeLoup[getIndexLoup(reproductedLoup)].canReproducted = false;
+
+                            cout << "Des loups se reproduisent" << endl;
                         } else {
                             break;
                         }
@@ -860,16 +931,40 @@ void Game::reproductionLoup() {
 }
 
 void Game::endReproductionLoup() {
+    bool reproducted = false;
     for (Loup loup : this->listeLoup) {
+        reproducted = false;
+        if (reproducted)
+            break;
         if (!loup.canReproducted) {
+            if (reproducted)
+                break;
             if (loup.sexe == FEMININ) {
-                for (int y = -1; y < 1; ++y) {
-                    for (int x = -1; x < 1; ++x) {
+                if (reproducted)
+                    break;
+                for (int y = -1; y <= 1; ++y) {
+                    if (reproducted)
+                        break;
+                    for (int x = -1; x <= 1; ++x) {
+                        if (reproducted)
+                            break;
+                        if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == LOUP) {
+                            Loup loup_reproducted = getLoup(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1]));
+                            if (!this->listeLoup[getIndexLoup(loup_reproducted)].canReproducted) {
+                                this->listeLoup[getIndexLoup(loup_reproducted)].canReproducted = true;
+                            }
+                        }
+
                         if (getBlockType(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1])) == CASE_VIDE) {
+
                             //On pose un nouveau bébé loup
                             Loup babyLoup(numberNotOutOfBound(loup.coordonates[0] + x, this->size[0]), numberNotOutOfBound(loup.coordonates[1] + y, this->size[1]));
                             babyLoup.setRandomSexe();
                             this->listeLoup.push_back(babyLoup);
+
+                            Evenements event(LOUP_NAIT, babyLoup.coordonates[0], babyLoup.coordonates[1]);
+                            this->listeEvenements.push_back(event);
+                            reproducted = true;
                         }
                     }
                 }

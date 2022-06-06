@@ -10,7 +10,7 @@ Animal::Animal(int x, int y) : Block(x, y) {
 void Animal::setRandomSexe() {
     srand (time(NULL));
 
-    int random = rand() % 1;
+    int random = rand() % 2;
 
     if (random == 0) {
         this->sexe = MASCULIN;

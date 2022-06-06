@@ -14,8 +14,8 @@ const string HERBE = "Herbe";
 const string MINERAUX = "Mineraux";
 const string CASE_VIDE = "Case Vide";
 const string ANIMAL = "Animal";
-const string MASCULIN;
-const string FEMININ;
+const string MASCULIN = "Masculin";
+const string FEMININ = "Feminin";
 
 // Evenements
 const string LOUP_MEURT_FAIM = "Un loup meurt de faim.";
@@ -25,6 +25,8 @@ const string MOUTON_MEURT_LOUP = "Un mouton à servi de repas à un loup.";
 const string MOUTON_MEURT_VIELLESSE = "Un mouton meurt de vieillesse";
 const string MOUTON_MANGE_HERBE = "De l'herbe a été mangé par un mouton";
 const string HERBE_POUSSE = "De l'herbe repousse !";
+const string LOUP_NAIT = "Un loup vient de naitre";
+const string MOUTON_NAIT = "Un mouton vient de naitre";
 
 // Tirets
 const int TIRETS = 5;
