@@ -37,6 +37,7 @@ public:
     vector<Herbe> listeHerbe;
     vector<Evenements> listeEvenements;
     string state;
+    int tour = 0;
 
     Game(int numberLoup, int numberMouton, int numberMineraux, int numberHerbe, int x, int y);
 
@@ -139,6 +140,8 @@ public:
     void endReproductionLoup();
 
     void reproductionLoup();
+
+    void incrementTour();
 };
 
 

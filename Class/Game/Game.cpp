@@ -50,6 +50,8 @@ void Game::startGame() {
 // Boucle du jeu
 void Game::gameLoop() {
     while(this->state == "started") {
+        // On ajoute un tour
+        this->incrementTour();
 
         // On fait pousser l'herbe en chaque début de tour
         this->changerMinerauxEnHerbe();
@@ -738,10 +740,7 @@ void Game::showNumberLife() {
     int numberHerbe = this->listeHerbe.size();
     int numberMineraux = this->listeMineraux.size();
 
-    cout << "[INFO] Il y a " << numberLoup << " loups" << endl;
-    cout << "[INFO] Il y a " << numberMouton << " moutons" << endl;
-    cout << "[INFO] Il y a " << numberHerbe << " herbes" << endl;
-    cout << "[INFO] Il y a " << numberMineraux << " mineraux" << endl;
+    cout << "[INFO] Tour " << this->tour << " | Loup " << numberLoup << " | Mouton " << numberMouton << " | Herbe " << numberHerbe << " | Mineraux " << numberMineraux << endl;
 }
 
 int Game::getIndexMineraux(Mineraux &mineraux) {
@@ -964,6 +963,10 @@ void Game::endReproductionLoup() {
             this->listeLoup[getIndexLoup(loup)].canReproducted = true;
         }
     }
+}
+
+void Game::incrementTour() {
+    this->tour++;
 }
 
 
