@@ -47,7 +47,7 @@ void Game::startGame() {
     this->gameLoop();
 }
 
-
+// Boucle du jeu
 void Game::gameLoop() {
     while(this->state == "started") {
 
@@ -137,7 +137,7 @@ void Game::addHerbe(int nombre) {
 }
 
 int * Game::generateCoordonate() {
-    srand (time(NULL));
+    //srand (time(NULL));
 
     int xCoordonate = rand() % this->size[0];
     int yCoordonate = rand() % this->size[1];
@@ -526,8 +526,8 @@ void Game::bestMoveMouton() {
                     moutonMoved = true;
 
                     // On affiche un message
-                    cout << "Le mouton s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
-                    cout << "[" + to_string(this->listeMouton[getIndexMouton(mouton)].coordonates[0] + 1) + intToLetter(this->listeMouton[getIndexMouton(mouton)].coordonates[1]) + "] " << endl;
+                    //cout << "Le mouton s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
+                    //cout << "[" + to_string(this->listeMouton[getIndexMouton(mouton)].coordonates[0] + 1) + intToLetter(this->listeMouton[getIndexMouton(mouton)].coordonates[1]) + "] " << endl;
                 }
             }
         }
@@ -577,8 +577,8 @@ void Game::bestMoveLoup() {
                     loupMoved = true;
 
                     // On affiche un message
-                    cout << "Le loup s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
-                    cout << "[" + to_string(this->listeLoup[getIndexLoup(loup)].coordonates[0]) + intToLetter(this->listeLoup[getIndexLoup(loup)].coordonates[1]) + "] " << endl;
+                    //cout << "Le loup s'est déplacé de [" << to_string(oldX + 1) + intToLetter(oldY) + "] à ";
+                    //cout << "[" + to_string(this->listeLoup[getIndexLoup(loup)].coordonates[0]) + intToLetter(this->listeLoup[getIndexLoup(loup)].coordonates[1]) + "] " << endl;
                 }
             }
         }
@@ -773,6 +773,7 @@ int Game::getIndexHerbe(Herbe &herbe) {
 void Game::checkEndGame() {
     if (this->listeMouton.empty() && this->listeLoup.empty() && this->listeMineraux.empty()) {
         this->state = "finished";
+        cout << "Le jeu est terminé il ne reste plus que de l'herbe sur la map" << endl;
     }
 }
 
@@ -800,12 +801,13 @@ void Game::reproductionMouton() {
                             this->listeMouton[getIndexMouton(mouton)].canReproducted = false;
                             this->listeMouton[getIndexMouton(reproductedMouton)].canReproducted = false;
 
-                            cout << "Des moutons se reproduisent" << endl;
+                            Evenements event(MOUTON_REPRODUCTION, mouton.coordonates[0], mouton.coordonates[1]);
+                            this->listeEvenements.push_back(event);
                         } else {
-                            break;
+                            continue;
                         }
                     } else {
-                        break;
+                        continue;
                     }
                 }
             }
@@ -839,13 +841,13 @@ Loup Game::getLoup(int x, int y) {
     return this->listeLoup[indexLoup];
 }
 
-bool Game::canReproductedMouton(Mouton firstMouton, Mouton secondMouton) {
+bool Game::canReproductedMouton(Mouton& firstMouton, Mouton& secondMouton) {
     if (firstMouton.sexe != secondMouton.sexe)
         return true;
     return false;
 }
 
-bool Game::canReproductedLoup(Loup firstLoup, Loup secondLoup) {
+bool Game::canReproductedLoup(Loup& firstLoup, Loup& secondLoup) {
     if (firstLoup.sexe != secondLoup.sexe)
         return true;
     return false;
@@ -855,14 +857,8 @@ void Game::endReproductionMouton() {
     bool reproducted = false;
     for (Mouton mouton : this->listeMouton) {
         reproducted = false;
-        if (reproducted)
-            break;
         if (!mouton.canReproducted) {
-            if (reproducted)
-                break;
             if (mouton.sexe == FEMININ) {
-                if (reproducted)
-                    break;
                 for (int y = -1; y <= 1; ++y) {
                     if (reproducted)
                         break;
@@ -918,12 +914,13 @@ void Game::reproductionLoup() {
                             this->listeLoup[getIndexLoup(loup)].canReproducted = false;
                             this->listeLoup[getIndexLoup(reproductedLoup)].canReproducted = false;
 
-                            cout << "Des loups se reproduisent" << endl;
+                            Evenements event(LOUP_REPRODUCTION, loup.coordonates[0], loup.coordonates[1]);
+                            this->listeEvenements.push_back(event);
                         } else {
-                            break;
+                            continue;
                         }
                     } else {
-                        break;
+                        continue;
                     }
                 }
             }
@@ -935,14 +932,8 @@ void Game::endReproductionLoup() {
     bool reproducted = false;
     for (Loup loup : this->listeLoup) {
         reproducted = false;
-        if (reproducted)
-            break;
         if (!loup.canReproducted) {
-            if (reproducted)
-                break;
             if (loup.sexe == FEMININ) {
-                if (reproducted)
-                    break;
                 for (int y = -1; y <= 1; ++y) {
                     if (reproducted)
                         break;
