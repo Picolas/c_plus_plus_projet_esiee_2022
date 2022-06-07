@@ -251,7 +251,7 @@ void Game::moutonMangeHerbe(Herbe& herbe, Mouton &mouton) {
             indexHerbe++;
         }
 
-        this->listeHerbe.erase( this->listeHerbe.begin() + (indexHerbe - 1));
+        this->listeHerbe.erase( this->listeHerbe.begin() + (indexHerbe));
     }
 }
 
@@ -262,7 +262,7 @@ void Game::loupMangeMouton(Mouton& mouton, Loup &loup) {
 
         this->listeLoup[getIndexLoup(loup)].faim = 10;
 
-        this->listeMouton.erase( this->listeMouton.begin() + (getIndexMouton(mouton) - 1));
+        this->listeMouton.erase( this->listeMouton.begin() + (getIndexMouton(mouton)));
 
         Mineraux mineraux(mouton.coordonates[0], mouton.coordonates[1]);
         this->listeMineraux.push_back(mineraux);
@@ -272,9 +272,11 @@ void Game::loupMangeMouton(Mouton& mouton, Loup &loup) {
 void Game::changerMinerauxEnHerbe() {
     for (Mineraux mineraux : this->listeMineraux) {
 
-        this->listeMineraux.erase( this->listeMineraux.begin() + (getIndexMineraux(mineraux) - 1));
+        int oldX = mineraux.coordonates[0];
+        int oldY = mineraux.coordonates[1];
+        this->listeMineraux.erase( this->listeMineraux.begin() + (getIndexMineraux(mineraux)));
 
-        Herbe herbe(mineraux.coordonates[0], mineraux.coordonates[1]);
+        Herbe herbe(oldX, oldY);
         this->listeHerbe.push_back(herbe);
 
         Evenements event(HERBE_POUSSE, herbe.coordonates[0], herbe.coordonates[1]);
@@ -291,7 +293,7 @@ void Game::killMouton(Mouton &mouton, string type) {
     Mineraux mineraux(mouton.coordonates[0], mouton.coordonates[1]);
     this->listeMineraux.push_back(mineraux);
 
-    this->listeMouton.erase( this->listeMouton.begin() + (getIndexMouton(mouton) - 1));
+    this->listeMouton.erase( this->listeMouton.begin() + (getIndexMouton(mouton)));
 }
 
 void Game::killLoup(Loup &loup, string type) {
@@ -301,7 +303,7 @@ void Game::killLoup(Loup &loup, string type) {
     Mineraux mineraux(loup.coordonates[0], loup.coordonates[1]);
     this->listeMineraux.push_back(mineraux);
 
-    this->listeLoup.erase( this->listeLoup.begin() + (getIndexLoup(loup) - 1));
+    this->listeLoup.erase( this->listeLoup.begin() + (getIndexLoup(loup)));
 }
 
 string Game::firstLine() {

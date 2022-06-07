@@ -26,9 +26,9 @@ public:
 
     int size[2];
     int tiret_space = TIRETS;
-    int number_loup = 10;
-    int number_mouton = 50;
-    int number_mineraux = 10;
+    int number_loup = 5;
+    int number_mouton = 20;
+    int number_mineraux = 0;
     int number_herbe = 50;
     //vector<vector<Block*>> listeBlock; //  = vector<vector<Block>>(50, vector<Block>(50));
     vector<Loup> listeLoup;
