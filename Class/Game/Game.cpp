@@ -742,7 +742,7 @@ void Game::showNumberLife() {
     int numberHerbe = this->listeHerbe.size();
     int numberMineraux = this->listeMineraux.size();
 
-    cout << "[INFO] Tour " << this->tour << " | Loup " << numberLoup << " | Mouton " << numberMouton << " | Herbe " << numberHerbe << " | Mineraux " << numberMineraux << endl;
+    cout << "[INFO] Tour " << this->tour << " | Loup " << numberLoup << " | Mouton " << numberMouton << endl; // << " | Herbe " << numberHerbe << " | Mineraux " << numberMineraux
 }
 
 int Game::getIndexMineraux(Mineraux &mineraux) {
